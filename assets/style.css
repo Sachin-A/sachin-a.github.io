@@ -8,7 +8,7 @@ a:hover {
 	text-decoration: none;
 	transition-duration: 0.3s;
 	transition-timing-function: linear;
-	/* color: #444; */
+	color: #8a0303 !important;
 }
 
 
@@ -38,7 +38,8 @@ a:hover {
 }
 
 .menulink:hover {
-	color: #111;
+	/* color: #111; */
+	color: #8a0303 !important;
 }
 
 .profilepic {

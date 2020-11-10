@@ -87,7 +87,7 @@ $("body").css("background-color", backgroundcolor);
 $("a").css("color", acolor);
 $("a").css("text-decoration", adecoration);
 
-$(".menulink").css("color", menucolor);
+// $(".menulink").css("color", menucolor);
 $(".menulink").css("font-size", menufontsize);
 $(".menulink").css("text-decoration", menudecoration);
 
