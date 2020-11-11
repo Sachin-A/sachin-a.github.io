@@ -11,6 +11,9 @@ a:hover {
 	color: #8a0303 !important;
 }
 
+small {
+	display: block;
+}
 
 .noter {
 	font-size: 9pt;
