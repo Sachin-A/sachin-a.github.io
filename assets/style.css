@@ -3,12 +3,37 @@
 	filter: grayscale(20%);
 }
 
-a:hover {
-	/* font-weight: 400; */
+/*a:hover {
+	font-weight: 400;
 	text-decoration: none;
-	transition-duration: 0.3s;
+	transition-duration: 0.1s;
 	transition-timing-function: linear;
 	color: #8a0303 !important;
+	text-decoration: underline !important;
+}*/
+
+a {
+  display: inline-block;
+  position: relative;
+  color: #8a0303;
+}
+
+a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #8a0303;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+a:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
 
 small {
