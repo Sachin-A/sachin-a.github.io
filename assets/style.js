@@ -27,6 +27,7 @@ const adecoration = "none";
 const menucolor = basecolor;
 const menufontsize = "16pt";
 const menudecoration = "none";
+const menupadding = "4px";
 // const menuhover = accentcolor;
 // const menuhoverduration = "0.3s";
 // const menuhoverdecoration = "none"; //none, underline, overline, dotted, color (https://www.w3schools.com/cssref/pr_text_text-decoration.asp)
@@ -90,6 +91,7 @@ $("a").css("text-decoration", adecoration);
 // $(".menulink").css("color", menucolor);
 $(".menulink").css("font-size", menufontsize);
 $(".menulink").css("text-decoration", menudecoration);
+$(".menulink").css("padding-bottom", menupadding);
 
 $(".header").css("color", headercolor);
 $(".header").css("font-size", headerfontsize);
