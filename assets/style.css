@@ -85,7 +85,7 @@ small {
 }
 
 .profilepic {
-	width: 150px;
+	width: 200px;
 	border-radius: 30%;
 }
 
@@ -125,3 +125,10 @@ small {
 		  color: #111;
 		  text-decoration: underline;
 	} */
+
+div.horizontalgap {
+	float: left;
+	overflow: hidden;
+	height: 10px;
+	width: 0px;
+}
