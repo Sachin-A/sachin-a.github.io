@@ -1,0 +1,17 @@
+@inproceedings{10.1145/3527974.3545728,
+author = {Ashok, Sachin and Partap, Aditi and Tahir, Ammar},
+title = {Fast and Efficient Lookups via Data-Driven FIB Designs},
+year = {2022},
+isbn = {9781450393287},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3527974.3545728},
+doi = {10.1145/3527974.3545728},
+abstract = {With the rapidly growing number of hosts connected to the internet, there is an ever-increasing demand for fast and inexpensive switch memory. At the same time, the number of network functions handled at the switch, especially in the case of a programmable switch, is increasing steadily (e.g., for the purposes of routing, telemetry, load balancing), which require dedicated memory. Various compact and efficient data structures (e.g., Bloom filters [15], ludo hashes [10], cuckoo filters [3]) have been proposed in the past to address these needs. However, these data structures can provide varying performance depending on the distribution of the actual key-value pairs they store. In addition, several of these data structures are probabilistic in nature and hence also trade-off on accuracy to achieve a lower memory usage.In our work, we propose using data-driven approaches to analyze these key-value pairs (i.e., FIB lookup data) for patterns which can aid in building more informed FIB designs. Primarily, we argue that using an ensemble model comprising of hash tables and Bloom filters (the composition as dictated by the data) can better meet the specific requirements (processing speed, available memory, accuracy level) of the given switch. In this paper, we present a spectrum of designs that are possible within this space and implement one specific prototype. Finally, we present preliminary evaluation of this prototype using enterprise network data to support our proposal.},
+booktitle = {Proceedings of the ACM SIGCOMM Workshop on Future of Internet Routing & Addressing},
+pages = {66–71},
+numpages = {6},
+keywords = {hash tables, forwarding information base, decision trees, bloom filters},
+location = {Amsterdam, Netherlands},
+series = {FIRA '22}
+}
