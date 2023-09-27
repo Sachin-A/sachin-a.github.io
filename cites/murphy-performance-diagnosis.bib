@@ -1,0 +1,17 @@
+@inproceedings{10.1145/3603269.3604877,
+author = {Harsh, Vipul and Zhou, Wenxuan and Ashok, Sachin and Mysore, Radhika Niranjan and Godfrey, Brighten and Banerjee, Sujata},
+title = {Murphy: Performance Diagnosis of Distributed Cloud Applications},
+year = {2023},
+isbn = {9798400702365},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3603269.3604877},
+doi = {10.1145/3603269.3604877},
+abstract = {Modern cloud-based applications have complex inter-dependencies on both distributed application components as well as network infrastructure, making it difficult to reason about their performance. As a result, a rich body of work seeks to automate performance diagnosis of enterprise networks and such cloud applications. However, existing methods either ignore inter-dependencies which results in poor accuracy, or require causal acyclic dependencies which cannot model common enterprise environments.We describe the design and implementation of Murphy, an automated performance diagnosis system, that can work with commonly available telemetry in practical enterprise environments, while achieving high accuracy. Murphy utilizes loosely-defined associations between entities obtained from commonly available monitoring data. Its learning algorithm is based on a Markov Random Field (MRF) that can take advantage of such loose associations to reason about how entities affect each other in the context of a specific incident. We evaluate Murphy in an emulated microservice environment and in real incidents from a large enterprise. Compared to past work, Murphy is able to reduce diagnosis error by ≈ 1.35\texttimes{} in restrictive environments supported by past work, and by ≥ 4.7\texttimes{} in more general environments.},
+booktitle = {Proceedings of the ACM SIGCOMM 2023 Conference},
+pages = {438–451},
+numpages = {14},
+keywords = {enterprise networks, cyclic dependencies, microservices, performance diagnosis},
+location = {New York, NY, USA},
+series = {ACM SIGCOMM '23}
+}

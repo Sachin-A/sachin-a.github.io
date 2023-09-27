@@ -132,3 +132,9 @@ div.horizontalgap {
 	height: 10px;
 	width: 0px;
 }
+
+.highlight-class {
+	background-color: #f5e9e9;
+	border-radius: 1px;
+	padding: 2px;
+}
