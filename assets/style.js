@@ -3,7 +3,7 @@ const fontname = "Barlow";
 const fontweights = [300, 400]
 
 // Color properties
-const basecolor = "#888";
+const basecolor = "#5a5a5a";
 const accentcolor = "#222";
 const highlightcolor = "#111";
 
@@ -110,3 +110,51 @@ $(".institution").css("color", insttitlecolor);
 $(".institution").css("font-size", insttitlesize);
 $(".years").css("color", instyearcolor);
 $(".years").css("font-size", instyearsize);
+
+
+/* Keep image hover previews inside the viewport */
+document.querySelectorAll(".keyboard-hover, .standup-hover").forEach(wrapper => {
+    const preview = wrapper.querySelector(".keyboard-preview, .standup-preview");
+    const link = wrapper.querySelector("a");
+    if (!preview || !link) return;
+
+    function positionPreview() {
+        const anchor = link.getBoundingClientRect();
+        const image = preview.getBoundingClientRect();
+        const margin = 12;
+
+        const clamp = (value, min, max) =>
+            Math.max(min, Math.min(value, max));
+
+        // Center above the link, without crossing screen edges.
+        const left = clamp(
+            anchor.left + anchor.width / 2 - image.width / 2,
+            margin,
+            window.innerWidth - image.width - margin
+        );
+
+        // Prefer above; flip below if necessary.
+        const above = anchor.top - image.height - margin;
+        const below = anchor.bottom + margin;
+
+        const top = above >= margin
+            ? above
+            : below + image.height <= window.innerHeight - margin
+                ? below
+                : clamp(above, margin, window.innerHeight - image.height - margin);
+
+        preview.style.left = `${left}px`;
+        preview.style.top = `${top}px`;
+    }
+
+    wrapper.addEventListener("pointerenter", positionPreview);
+    wrapper.addEventListener("focusin", positionPreview);
+    preview.addEventListener("load", positionPreview);
+
+    window.addEventListener("resize", positionPreview);
+    window.addEventListener("scroll", () => {
+        if (wrapper.matches(":hover") || wrapper.contains(document.activeElement)) {
+            positionPreview();
+        }
+    }, { passive: true });
+});

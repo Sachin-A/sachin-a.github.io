@@ -1,61 +1,23 @@
+/* Base typography and colors */
 body {
 	font-family: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 	font-weight: 300;
 	font-size: 12pt;
-	color: #888;
+	color: #5a5a5a;
 	background-color: #fff;
 }
 
-.instilogo {
-	height: 50px;
-	filter: grayscale(20%);
-}
-
-/*a:hover {
-	font-weight: 400;
-	text-decoration: none;
-	transition-duration: 0.1s;
-	transition-timing-function: linear;
-	color: #8a0303 !important;
-	text-decoration: underline !important;
-}*/
-
-/* a {
-  display: inline-block;
-  position: relative;
-  color: #8a0303;
-}
-
-a:after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: #8a0303;
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-}
-
-a:hover:after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-} */
-
 a {
-    text-decoration: none;
-    background-image: linear-gradient(#8a0303, #8a0303);
-    background-position: 0% 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 2px;
-    transition: background-size .3s;
+	text-decoration: none;
+	background-image: linear-gradient(#8a0303, #8a0303);
+	background-position: 0% 100%;
+	background-repeat: no-repeat;
+	background-size: 0% 2px;
+	transition: background-size 0.3s;
 }
 
 a:hover {
-/* a:hover, a:focus { */
-    background-size: 100% 2px;
+	background-size: 100% 2px;
 }
 
 small {
@@ -88,104 +50,26 @@ small {
 }
 
 .menulink:hover {
-	/* color: #111; */
 	color: #8a0303 !important;
 }
 
 .profilepic {
 	width: 200px;
+	max-width: 100%;
+	height: auto;
 	border-radius: 30%;
 }
 
-@media (min-width: 768px) {
-	.fixed-posi {
-		position: sticky;
-		top: 40px;
-		width: 100%;
-		height: calc(100dvh - 56px);
-		display: flex;
-		flex-direction: column;
-	}
-
-	.fixed-posi> :not(.news-section) {
-		flex-shrink: 0;
-	}
-
-	.news-section {
-		display: flex;
-		flex-direction: column;
-		flex: 0 1 auto;
-		min-height: 0;
-		width: 100%;
-		max-width: 340px;
-		overflow: hidden;
-	}
-
-	.news-section .header {
-		flex-shrink: 0;
-	}
-
-	.news-list {
-		min-height: 0;
-		overflow-y: auto;
-		overscroll-behavior: contain;
-		padding-right: 10px;
-
-		scrollbar-width: thin;
-		scrollbar-color: #d0d0d0 transparent;
-	}
-
-	.news-list::-webkit-scrollbar {
-		width: 5px;
-	}
-
-	.news-list::-webkit-scrollbar-track {
-		background: transparent;
-	}
-
-	.news-list::-webkit-scrollbar-thumb {
-		background: #d0d0d0;
-		border-radius: 10px;
-	}
-
-	.news-list::-webkit-scrollbar-thumb:hover {
-		background: #999;
-	}
+.instilogo {
+	height: 50px;
+	filter: grayscale(20%);
 }
-
-@media only screen and (max-width: 900px) {
-	.allstuff {
-		padding-top: 0px !important;
-	}
-
-	.allstuffp {
-		padding-top: 0px !important;
-	}
-
-	.profilepic {
-		width: 90px;
-		border-radius: 30%;
-		padding-top: 0px !important;
-		padding-bottom: 0px !important;
-		/* filter: grayscale(100%); */
-	}
-
-	.menur {
-		padding-top: 18px !important;
-	}
-
-}
-
-/* .thisauthor {
-		  color: #111;
-		  text-decoration: underline;
-	} */
 
 div.horizontalgap {
 	float: left;
 	overflow: hidden;
 	height: 10px;
-	width: 0px;
+	width: 0;
 }
 
 .highlight-class {
@@ -194,7 +78,7 @@ div.horizontalgap {
 	padding: 2px;
 }
 
-/* News section */
+/* News */
 .news-section {
 	max-width: 340px;
 }
@@ -217,47 +101,36 @@ div.horizontalgap {
 	color: #222;
 }
 
-/* Keep news readable on smaller screens */
-@media (max-width: 767px) {
-	.news-section {
-		max-width: 100%;
-		margin-bottom: 25px;
-	}
+/* Centered page: keep paragraphs readable even on wide monitors. */
+.allstuffp {
+	width: 94%;
+	max-width: 1420px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-/* Expand the overall page on larger monitors */
-@media (min-width: 1200px) {
-	.allstuffp {
-		max-width: min(94vw, 1750px);
-	}
-}
+/* Desktop: Bootstrap's col-md-4 and col-md-8 provide a 33% / 67% split. */
+@media (min-width: 992px) {
 
-/* Allocate more space to publications */
-@media (min-width: 1400px) {
+	.allstuff {
+		justify-content: center;
+	}
+
 	.allstuff>.col-md-4 {
 		flex: 0 0 24%;
 		max-width: 24%;
 	}
 
 	.allstuff>.col-md-8 {
-		flex: 0 0 57%;
-		max-width: 57%;
+		flex: 0 0 62%;
+		max-width: 62%;
 	}
-}
-
-/* Desktop sidebar layout */
-@media (min-width: 768px) {
-
-	/* Remove outer top padding to eliminate sticky movement */
-	.allstuffp {
-		padding-top: 0 !important;
-	}
-
+	/* Remove outer padding so sticky does not jump before settling. */
+	.allstuffp,
 	.allstuff>.col-md-4 {
 		padding-top: 0 !important;
 	}
 
-	/* Preserve the visual top spacing for the main content */
 	.allstuff>.col-md-8 {
 		padding-top: 80px !important;
 	}
@@ -266,47 +139,121 @@ div.horizontalgap {
 		position: sticky;
 		top: 0;
 		width: 100%;
+		height: 100vh;
 		height: 100dvh;
-		padding-top: 80px;
-		padding-bottom: 16px;
+		padding: 80px 0 16px;
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 	}
 
-}
+	/* Keep name, photo, and links stationary. Only News may shrink. */
+	.fixed-posi> :not(.news-section) {
+		flex-shrink: 0;
+	}
 
-/* Center the narrower two-column layout */
-@media (min-width: 1400px) {
-	.allstuff {
-		justify-content: center;
+	.news-section {
+		display: flex;
+		flex-direction: column;
+		flex: 0 1 auto;
+		min-height: 0;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.news-section .header {
+		flex-shrink: 0;
+	}
+
+	.news-list {
+		min-height: 0;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		padding-right: 10px;
 	}
 }
 
-/* Subtle scrollbar for the entire page */
-html {
+/* Stacked layout for tablets, smaller windows, and phones. */
+@media (max-width: 991.98px) {
+	.allstuffp {
+		max-width: min(94vw, 760px);
+		padding-top: 0 !important;
+	}
+
+	.allstuff>.col-md-4,
+	.allstuff>.col-md-8 {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+
+	.fixed-posi {
+		position: static;
+		width: 100%;
+		height: auto;
+		max-height: none;
+		padding-top: 24px;
+		padding-bottom: 0;
+		display: block;
+	}
+
+	.profilepic {
+		width: 200px;
+		max-width: 100%;
+		height: auto;
+	}
+
+	.menur {
+		padding-top: 18px !important;
+	}
+
+	.news-section {
+		display: block;
+		flex: none;
+		max-width: 100%;
+		overflow: visible;
+		margin-bottom: 25px;
+	}
+
+	.news-list {
+		overflow: visible;
+		max-height: none;
+		padding-right: 0;
+	}
+
+	.allstuff>.col-md-8 {
+		padding-top: 24px !important;
+	}
+}
+
+/* Subtle scrollbars for News and the page */
+html,
+.news-list {
 	scrollbar-width: thin;
 	scrollbar-color: #d0d0d0 transparent;
 }
 
-/* Chrome, Safari, and Edge */
-html::-webkit-scrollbar {
+html::-webkit-scrollbar,
+.news-list::-webkit-scrollbar {
 	width: 6px;
 }
 
-html::-webkit-scrollbar-track {
+html::-webkit-scrollbar-track,
+.news-list::-webkit-scrollbar-track {
 	background: transparent;
 }
 
-html::-webkit-scrollbar-thumb {
+html::-webkit-scrollbar-thumb,
+.news-list::-webkit-scrollbar-thumb {
 	background: #d0d0d0;
 	border-radius: 10px;
 }
 
-html::-webkit-scrollbar-thumb:hover {
+html::-webkit-scrollbar-thumb:hover,
+.news-list::-webkit-scrollbar-thumb:hover {
 	background: #999;
 }
 
+/* Job market announcement */
 .job-market {
 	border-left: 2px solid #8a0303;
 	padding-left: 12px;
@@ -318,6 +265,7 @@ html::-webkit-scrollbar-thumb:hover {
 	color: #222;
 }
 
+/* Personal note and inline icons */
 .sleeper-icon {
 	height: 1.4em;
 	width: auto;
@@ -327,22 +275,20 @@ html::-webkit-scrollbar-thumb:hover {
 	opacity: 0.85;
 }
 
-/* Spacing for personal bio icons */
 .about .fa-music,
-.about .fa-keyboard-o {
+.about .fa-keyboard-o,
+.about .fa-microphone,
+.about .iconify {
 	margin-left: 3px;
 	margin-right: 3px;
 }
 
-/* Understated links in personal bio */
 .personal-note a.in-text {
-	color: #888 !important;
-	background-image: none;
+	color: #5a5a5a !important;
 }
 
 .personal-note a.in-text:hover {
-	color: #555 !important;
-	text-decoration: underline !important;
+	color: #444 !important;
 }
 
 .personal-note .fa {
@@ -353,10 +299,11 @@ html::-webkit-scrollbar-thumb:hover {
 	opacity: 0.65;
 }
 
-/* Mechanical keyboard hover preview */
-.keyboard-hover {
+/* Hover previews for personal projects */
+.keyboard-hover,
+.standup-hover {
 	position: relative;
-	display: inline-block;
+	display: inline;
 }
 
 .keyboard-preview {
@@ -364,13 +311,11 @@ html::-webkit-scrollbar-thumb:hover {
 	bottom: calc(100% + 10px);
 	left: 50%;
 	transform: translateX(-50%) translateY(5px);
-
 	width: 320px;
 	max-width: 80vw;
 	height: auto;
 	border-radius: 6px;
 	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
-
 	opacity: 0;
 	visibility: hidden;
 	pointer-events: none;
@@ -385,9 +330,87 @@ html::-webkit-scrollbar-thumb:hover {
 	transform: translateX(-50%) translateY(0);
 }
 
-/* On touch devices, tap the link to view the photo */
+.standup-preview {
+	position: absolute;
+	right: 0;
+	bottom: calc(100% + 10px);
+	width: min(650px, 80vw);
+	max-width: none;
+	height: auto;
+	border: 1px solid #eee;
+	border-radius: 4px;
+	background: #fff;
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.2s ease;
+	z-index: 1000;
+}
+
+@media (hover: hover) {
+
+	.standup-hover:hover .standup-preview,
+	.standup-hover:focus-within .standup-preview {
+		opacity: 1;
+		visibility: visible;
+	}
+}
+
 @media (hover: none) {
-	.keyboard-preview {
+
+	.keyboard-preview,
+	.standup-preview {
 		display: none;
 	}
+}
+
+/* Subtle dotted underline for personal links */
+.personal-note a.in-text {
+	text-decoration: underline dotted #aaa !important;
+	text-decoration-thickness: 1px !important;
+	text-underline-offset: 3px;
+}
+
+.personal-note a.in-text:hover,
+.personal-note a.in-text:focus-visible {
+	text-decoration: none !important;
+}
+
+/* Keep hover previews within the viewport */
+.keyboard-preview,
+.standup-preview {
+	position: fixed;
+	left: 12px;
+	top: 12px;
+	right: auto;
+	bottom: auto;
+	max-width: calc(100vw - 24px);
+	max-height: calc(100dvh - 24px);
+	object-fit: contain;
+	transform: none !important;
+}
+
+@media (hover: none) {
+
+	.keyboard-preview,
+	.standup-preview {
+		display: none;
+	}
+}
+
+/* Equal contribution markers */
+.equal-contrib {
+	font-size: 0.75em;
+	vertical-align: 0.05em;
+	line-height: 0;
+	margin-left: 1px;
+}
+
+/* Publication footnote */
+.equal-contrib-note {
+	font-size: 9pt;
+	color: #999;
+	margin-top: 12px;
+	margin-bottom: 0;
 }
