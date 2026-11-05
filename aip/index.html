@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Application Insight Plane</title>
+<meta name="author" content="Sachin Ashok">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+
+:root {
+  --bg: #f4f5f7; --surface: #ffffff; --ink: #141a22; --body: #2f3a46; --muted: #5b6572; --line: #d9dee5; --soft: #eceff3;
+  --ins: #9e2a2b; --ins-ink: #7a1f20; --ins-bg: #f9eeee;
+  --ext: #1f6f66; --ext-line: #2a8a7e; --ext-bg: #e6f3f1;
+  --ctl: #1a4fae; --ctl-line: #2f66d0; --ctl-bg: #e8f0fd;
+  --app: #3d4855; --app-bg: #e6eaee;
+  --gold: #8a6512; --gold-bg: #faf3dc;
+  --ok: #2e7d4f; --warn: #a8641a;
+  --c1: #2f66d0; --c2: #c2571a; --c3: #7a3fb0; --c4: #2e7d4f;
+  --display: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --text: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #12161c; --surface: #1a2028; --ink: #eef1f5; --body: #cfd6de; --muted: #98a3b0; --line: #2e3742; --soft: #222a33;
+  --ins: #e07b7c; --ins-ink: #f0a3a4; --ins-bg: #3a2324; --ext: #6fcdbf; --ext-line: #4fb3a5; --ext-bg: #183631;
+  --ctl: #8fb4ff; --ctl-line: #6d9bf5; --ctl-bg: #1c2a45; --app: #c3ccd6; --app-bg: #26303b; --gold: #e3bf6a; --gold-bg: #3a3220;
+  --ok: #6fd39a; --warn: #f0a85a; --c1: #7fa8ff; --c2: #ff9a5c; --c3: #c39af0; --c4: #6fd39a; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #12161c; --surface: #1a2028; --ink: #eef1f5; --body: #cfd6de; --muted: #98a3b0; --line: #2e3742; --soft: #222a33;
+  --ins: #e07b7c; --ins-ink: #f0a3a4; --ins-bg: #3a2324; --ext: #6fcdbf; --ext-line: #4fb3a5; --ext-bg: #183631;
+  --ctl: #8fb4ff; --ctl-line: #6d9bf5; --ctl-bg: #1c2a45; --app: #c3ccd6; --app-bg: #26303b; --gold: #e3bf6a; --gold-bg: #3a3220;
+  --ok: #6fd39a; --warn: #f0a85a; --c1: #7fa8ff; --c2: #ff9a5c; --c3: #c39af0; --c4: #6fd39a; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--body); font: 400 17px/1.6 var(--text); margin: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); color: var(--ink); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 52px); line-height: 1.08; font-weight: 800; letter-spacing: -.02em; }
+h1 .accent { color: var(--ins); }
+h2 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; font-weight: 700; letter-spacing: -.01em; }
+h3 { font-size: 20px; font-weight: 700; }
+p { margin: 0; }
+code, .mono { font-family: var(--mono); font-size: .9em; }
+a { color: var(--ctl); }
+button { font: inherit; }
+:focus-visible { outline: 3px solid var(--ctl-line); outline-offset: 2px; border-radius: 6px; }
+.eyebrow { font: 600 13px/1 var(--text); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+section { padding-block: 56px; border-top: 1px solid var(--line); }
+.sec-head { display: grid; gap: 12px; margin-bottom: 24px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.btn { appearance: none; border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 8px 14px; font-weight: 600; font-size: 15px; cursor: pointer; }
+.btn:hover { border-color: var(--muted); }
+.btn[aria-pressed="true"] { border-color: var(--ink); background: var(--soft); }
+.btn.primary { background: var(--ext); border-color: var(--ext); color: #fff; }
+:root[data-theme="dark"] .btn.primary { color: #0d1a18; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #0d1a18; } }
+.btn.primary:disabled { opacity: .45; cursor: default; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.hint { color: var(--ctl); font-weight: 600; }
+.scroll-x { overflow-x: auto; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+header { padding-block: 48px 40px; }
+.authors { margin-top: 18px; font-size: 18px; color: var(--ink); line-height: 1.6; }
+.authors b { font-weight: 700; }
+.authors sup, .aff sup { font-size: .62em; }
+.aff { color: var(--muted); font-size: 15px; margin-top: 4px; }
+.venue { margin-top: 14px; color: var(--muted); font-size: 15px; }
+.links { margin-top: 22px; }
+.links a { text-decoration: none; }
+.thesis { margin-top: 28px; font-size: 20px; color: var(--ink); }
+.credit { font-size: 15px; color: var(--muted); }
+@media (max-width: 700px) { br.wide { display: none; } }
+.credit a { color: var(--ink); font-weight: 600; }
+.authors a.me { color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
+.authors a.me:hover { border-bottom-color: currentColor; }
+.thesis b { color: var(--ins); }
+
+.xray { position: relative; padding: 18px; min-height: 420px; overflow: hidden; }
+.app-graph { position: relative; height: 380px; width: 1060px; }
+.svc { position: absolute; width: 210px; padding: 10px 12px; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; font-size: 14px; line-height: 1.35; z-index: 2; }
+.svc .n { font-weight: 700; color: var(--ink); display: block; }
+.ov { display: none; margin-top: 6px; font-size: 13px; }
+.ov.on { display: block; }
+.ov-cm { color: var(--ext); } .ov-rp { color: var(--warn); } .ov-cg { color: var(--ins-ink); }
+.lid { position: absolute; inset: 0; background: var(--app); display: grid; place-items: center; text-align: center; color: var(--bg); z-index: 5; transition: opacity .6s; }
+.lid.off { opacity: 0; pointer-events: none; }
+.lid p { margin: 0 auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; margin-top: 12px; }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--dot); }
+.legend[hidden] { display: none; }
+#edges { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.xcap { margin-top: 14px; color: var(--body); min-height: 3.2em; }
+
+.plane { padding: 16px; }
+.plane svg { display: block; width: 100%; min-width: 760px; height: auto; }
+.steps { margin-top: 14px; }
+.stepcap { margin-top: 12px; min-height: 3.2em; }
+
+.mx { border-collapse: separate; border-spacing: 6px; min-width: 760px; }
+.mx th { font: 600 14px/1.25 var(--text); color: var(--ink); text-align: left; padding: 4px 6px; vertical-align: bottom; }
+.mx th.rowh { color: var(--ins-ink); white-space: nowrap; }
+.mx td button { width: 100%; min-height: 44px; border: 2px solid var(--line); background: var(--surface); border-radius: 10px; cursor: pointer; font-size: 13px; color: var(--muted); }
+.mx td button.has { background: var(--ins-bg); border-color: color-mix(in srgb, var(--ins) 35%, var(--line)); color: var(--ins-ink); font-weight: 600; }
+.mx td button[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink) inset; }
+.mdetail { padding: 18px 20px; margin-top: 14px; display: grid; gap: 6px; }
+.mdetail .q { font-weight: 700; color: var(--ink); }
+
+.play { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 16px; }
+@media (max-width: 860px) { .play { grid-template-columns: minmax(0, 1fr); } }
+.code { padding: 0; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); background: var(--soft); overflow-x: auto; }
+.tabs button { border: 0; background: transparent; padding: 10px 14px; font: 500 13px var(--mono); color: var(--muted); cursor: pointer; white-space: nowrap; }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: inset 0 -2px 0 var(--ext-line); }
+pre.src { margin: 0; padding: 12px 0; font: 13px/1.6 var(--mono); color: var(--body); overflow-x: auto; min-height: 330px; }
+pre.src .ln { display: block; padding: 0 14px; white-space: pre; }
+pre.src .ln::before { content: attr(data-n); display: inline-block; width: 2.6em; color: var(--muted); opacity: .7; }
+pre.src .cite { background: var(--ext-bg); box-shadow: inset 3px 0 0 var(--ext-line); }
+pre.src .chg { background: color-mix(in srgb, var(--warn) 18%, transparent); box-shadow: inset 3px 0 0 var(--warn); }
+.prov { padding: 16px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.prov .head { display: flex; justify-content: space-between; gap: 10px; align-items: center; flex-wrap: wrap; }
+.status { font: 600 13px var(--text); padding: 4px 10px; border-radius: 999px; background: var(--soft); color: var(--muted); }
+.status.fresh { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.status.stale { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+.log { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; }
+.log li { display: grid; grid-template-columns: 22px 1fr; gap: 8px; opacity: 0; transform: translateY(4px); transition: opacity .3s, transform .3s; }
+.log li.in { opacity: 1; transform: none; }
+.log li .ic { font-weight: 700; color: var(--ext); }
+.log li.skip .ic { color: var(--muted); }
+.icard { border: 2px solid color-mix(in srgb, var(--ins) 45%, var(--line)); border-radius: 12px; overflow: hidden; }
+.icard .hd { background: var(--ins-bg); padding: 8px 12px; font: 500 14px var(--mono); color: var(--ins-ink); }
+.icard .bd { padding: 8px 12px; font: 13px/1.6 var(--mono); color: var(--body); white-space: pre-wrap; }
+.icard .bd .k { color: var(--muted); }
+.icard .bd .new { background: color-mix(in srgb, var(--warn) 22%, transparent); border-radius: 4px; }
+.limit { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.limit .v { font: 800 40px/1 var(--display); color: var(--ctl); font-variant-numeric: tabular-nums; }
+.limit .why { font-size: 14px; color: var(--muted); }
+.changes { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.changes .btn { text-align: left; font-weight: 500; }
+.changes .btn small { display: block; color: var(--muted); font-weight: 400; font-size: 13px; }
+.note { font-size: 13px; color: var(--muted); }
+
+.res { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 16px; }
+@media (max-width: 860px) { .res { grid-template-columns: minmax(0, 1fr); } }
+.res .panel { padding: 18px 20px; display: grid; gap: 10px; align-content: start; }
+.res h3 { color: var(--ins-ink); }
+.res ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips span { font: 12.5px var(--mono); color: var(--ext); border: 1.5px solid var(--ext-line); border-radius: 999px; padding: 3px 10px; background: var(--surface); }
+.chart svg { width: 100%; height: auto; display: block; }
+.chart text { fill: var(--muted); font: 13px var(--text); }
+
+.talks { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; max-width: 820px; }
+.talks .panel { padding: 14px; display: grid; gap: 10px; }
+.talks video { width: 100%; border-radius: 10px; background: #000; aspect-ratio: 16 / 9; max-width: 100%; }
+
+.qs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.qs details { padding: 16px 18px; }
+.qs summary { cursor: pointer; font-weight: 700; color: var(--ink); font-size: 18px; }
+.qs details p { margin-top: 10px; }
+footer { padding-block: 40px 64px; border-top: 1px solid var(--line); }
+.bib { font: 12.5px/1.55 var(--mono); padding: 14px; white-space: pre; overflow-x: auto; margin-top: 10px; }
+</style>
+</head><body>
+
+<header class="wrap">
+  <div class="eyebrow">HotNets ’26 · Salt Lake City</div>
+  <h1 style="margin-top:12px">The Cloud Should Adapt to Its Applications, <span class="accent">Not the Other Way Around!</span></h1>
+  <div class="authors"><a class="me" href="https://sachin.cs.illinois.edu"><b>Sachin Ashok</b></a><sup>†*</sup>, Karuna Grewal<sup>§*</sup>, Talha Waheed<sup>†</sup>, Gangmuk Lim<sup>†</sup>, Gerard Matthew<sup>†¶</sup>, Aditya S Prerepa<sup>†</sup>,<br class="wide"> P. Brighten Godfrey<sup>†</sup>, Justin Hsu<sup>§</sup>, Radhika Mittal<sup>†</sup></div>
+  <div class="aff"><sup>†</sup>University of Illinois Urbana-Champaign &nbsp; <sup>§</sup>Cornell University &nbsp; <sup>¶</sup>Amazon &nbsp; <sup>*</sup>Equal contribution</div>
+  <div class="row links">
+    <a class="btn" href="https://doi.org/10.1145/3847290.3859957" target="_blank" rel="noopener">Paper</a>
+    <a class="btn" href="#talks">2-minute video</a>
+    <span class="credit" style="margin-left:8px">Website by <a href="https://sachin.cs.illinois.edu">Sachin Ashok</a></span>
+  </div>
+  <p class="thesis">Cloud controllers manage applications better when they adapt to each application’s specifics. That needs <b>application insights</b>, such as call graphs and concurrency models. We propose an <b>Application Insight Plane (AIP)</b> that uses LLM agents to extract these insights once, keep them valid, and share them with every controller.</p>
+</header>
+
+<main>
+<section id="inside"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">1 · What controllers cannot see</div>
+    <h2>Controllers see an opaque box. The code describes what is inside.</h2>
+    <p>Spring PetClinic, a microservice application used in the paper. Open the box, then pick which insight to show.</p></div>
+  <div class="row" role="group" aria-label="View">
+    <button class="btn" id="v-out" aria-pressed="true">As controllers see it</button>
+    <button class="btn" id="v-in" aria-pressed="false">X-ray view</button>
+  </div>
+  <div class="row" role="group" aria-label="Insight to show" id="ovs" style="margin-top:10px"></div>
+  <div class="panel xray scroll-x" style="margin-top:14px">
+    <div class="app-graph" id="graph">
+      <svg id="edges" viewBox="0 0 1060 380" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="lid" id="lid"><div><p style="font:700 22px var(--display)">The application, as controllers see it</p><p style="opacity:.8;margin-top:6px">request rate · latency · CPU</p></div></div>
+    </div>
+  </div>
+  <div class="legend" id="legend" hidden></div>
+  <p class="xcap" id="xcap" aria-live="polite">Controllers only see request rates, latency and CPU. Open the x-ray view to see what the code and configuration say about the same application.</p>
+</div></section>
+
+<section id="plane"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">2 · The proposal</div>
+    <h2>An Application Insight Plane between applications and controllers</h2>
+    <p>Step through how one insight is extracted, published, queried and returned.</p></div>
+  <div class="panel plane scroll-x"><svg id="planesvg" viewBox="0 0 1060 400" role="img" aria-label="AIP architecture: the application feeds insight providers inside the plane, providers publish insights to a registry, controllers query the registry and get an insight back."></svg></div>
+  <div class="row steps" role="group" aria-label="Steps" id="psteps"></div>
+  <p class="stepcap" id="pcap" aria-live="polite"></p>
+</div></section>
+
+<section id="uses"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">3 · Why share insights</div>
+    <h2>A few kinds of insights serve many kinds of controllers</h2>
+    <p>Each row is a kind of insight, and each column is a kind of controller. Pick a filled cell to see how that controller can use the insight.</p></div>
+  <div class="scroll-x"><table class="mx" id="mx"></table></div>
+  <div class="panel mdetail" aria-live="polite"><p class="q" id="mq"></p><p id="ma"></p><p class="note" id="mdef"></p></div>
+</div></section>
+
+<section id="playground"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">4 · Extraction, and keeping it valid</div>
+    <h2>Watch the provider extract a concurrency model, then change the code</h2>
+    <p class="hint">Press “Fetch insight”, then pick a change and fetch again. The provider re-extracts only when a change touches what the insight was built from.</p></div>
+  <div class="play">
+    <div class="panel code">
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <pre class="src" id="src" aria-live="polite"></pre>
+    </div>
+    <div class="panel prov">
+      <div class="head"><h3>Concurrency model provider</h3><span class="status" id="pstat">no insight yet</span></div>
+      <div class="row"><button class="btn primary" id="fetch">Fetch insight</button><button class="btn" id="reset">Reset</button></div>
+      <ol class="log" id="log"></ol>
+      <div class="icard" id="icard" hidden><div class="hd">concurrency_model · Svc(petclinic, visits-service)</div><div class="bd" id="ibody"></div></div>
+      <div class="limit" id="limit" hidden><span class="v" id="lv">9</span><span><b>Envoy’s limit</b><br><span class="why" id="lwhy"></span></span></div>
+    </div>
+  </div>
+  <div style="margin-top:16px"><div class="eyebrow" style="margin-bottom:8px">Make a change</div><div class="changes" id="changes"></div></div>
+  <p class="note" style="margin-top:12px">The provider’s output on this page is precomputed.</p>
+</div></section>
+
+<section id="results"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">5 · Preliminary evaluation</div>
+    <h2>Generality and utility</h2></div>
+  <div class="res">
+    <div class="panel"><h3>Generality</h3>
+      <ul><li>Ran the LLM-based provider on 8 applications from 7 benchmark suites.</li>
+        <li>100 services with source code: extracted each concurrency model, in one common schema.</li>
+        <li>16 SockShop services with only deployment files: abstained rather than guess.</li></ul>
+      <p class="note">Concurrency mechanisms it recognized</p>
+      <div class="chips"><span>Tomcat thread pool</span><span>Gunicorn process pool</span><span>uWSGI</span><span>ThreadPoolExecutor</span><span>goroutine per RPC</span><span>Node.js event loop</span><span>Thrift thread per connection</span><span>ASP.NET Core</span><span>RabbitMQ consumers</span></div>
+    </div>
+    <div class="panel chart"><h3>Utility</h3>
+      <p>Envoy with the concurrency insight keeps p95 latency lower under overload, with at most 0.4% lower goodput.</p>
+      <div class="row" role="group" aria-label="Configuration" id="cfg"></div>
+      <svg id="p95" viewBox="0 0 620 330" role="img" aria-label="p95 latency against offered load for default Envoy and Envoy with the insight"></svg>
+      <p class="note" id="cfgnote"></p>
+    </div>
+  </div>
+</div></section>
+
+<section id="talks"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">6 · Video</div><h2>The paper in two minutes</h2></div>
+  <div class="talks">
+    <div class="panel"><video id="v2" controls preload="metadata" src="AIP_2min.mp4"></video></div>
+  </div>
+</div></section>
+
+<section id="questions"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow">7 · Open questions</div><h2>What we would like to discuss</h2></div>
+  <div class="qs">
+    <details class="panel" open><summary>Which insights to standardize?</summary><p>The few kinds many controllers need, each with one schema, so a provider and a controller built by different teams still fit together.</p></details>
+    <details class="panel" open><summary>How to keep them valid?</summary><p>An insight records the code, configuration and workload it was derived from. When any of those change, the insight has to be checked again, and a controller should fall back to its default when it is stale or uncertain.</p></details>
+    <details class="panel" open><summary>How to share them safely?</summary><p>Give each controller only what it needs. An overload controller needs a thread pool limit, not the source code behind it, and the provider must resist instructions planted in code or logs.</p></details>
+  </div>
+</div></section>
+</main>
+
+<footer class="wrap">
+  <p class="credit" style="margin:0 0 22px">Website by <a href="https://sachin.cs.illinois.edu">Sachin Ashok</a></p>
+  <div class="eyebrow">Cite</div>
+  <div class="row" style="margin-top:8px"><button class="btn" id="copybib">Copy BibTeX</button><span class="note" id="copymsg" aria-live="polite"></span></div>
+  <pre class="panel bib" id="bib">@inproceedings{ashok2026cloud,
+  title     = {The Cloud Should Adapt to Its Applications, Not the Other Way Around!},
+  author    = {Ashok, Sachin and Grewal, Karuna and Waheed, Talha and Lim, Gangmuk and Matthew, Gerard
+               and Prerepa, Aditya S and Godfrey, P. Brighten and Hsu, Justin and Mittal, Radhika},
+  booktitle = {Proceedings of the 25th ACM Workshop on Hot Topics in Networks (HotNets '26)},
+  year      = {2026},
+  doi       = {10.1145/3847290.3859957}
+}</pre>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+const NODES = {
+  gw: { x: 40, y: 150, n: 'API gateway', cg: '→ calls customers, visits and vets', cm: 'event loop (Netty)', rp: 'light CPU per request' },
+  cu: { x: 420, y: 20, n: 'customers-service', cg: '→ calls MySQL', cm: 'Tomcat thread pool', rp: 'moderate CPU, small DB reads' },
+  vi: { x: 420, y: 150, n: 'visits-service', cg: '→ calls MySQL', cm: 'Tomcat: 8 threads, 32 DB connections, blocks on each JDBC call', rp: 'most time spent holding a DB connection' },
+  ve: { x: 420, y: 280, n: 'vets-service', cg: '→ calls MySQL', cm: 'Tomcat thread pool', rp: 'light, cacheable reads' },
+  db: { x: 800, y: 150, n: 'MySQL', cg: 'called by all three services', cm: 'connection pools from each service', rp: 'disk and lock contention under load' } };
+const EDGES = [['gw', 'cu'], ['gw', 'vi'], ['gw', 've'], ['cu', 'db'], ['vi', 'db'], ['ve', 'db']];
+const CLASSES = [
+  { id: 'c1', name: 'Owner lookup', path: ['gw', 'cu', 'db'], note: 'reads one owner and their pets' },
+  { id: 'c2', name: 'Visit history', path: ['gw', 'vi', 'db'], note: 'reads many rows and holds a database connection for most of the request' },
+  { id: 'c3', name: 'New visit', path: ['gw', 'vi', 'db'], note: 'one small write, done quickly' },
+  { id: 'c4', name: 'Vet list', path: ['gw', 've', 'db'], note: 'small reads that can be cached' }];
+const OVS = [['cg', 'Call graph'], ['cm', 'Concurrency model'], ['rp', 'Resource profile'], ['rc', 'Request classes']];
+let open = false, ov = 'cg', raf = 0;
+const graph = $('graph');
+Object.entries(NODES).forEach(([id, d]) => { const el = document.createElement('div'); el.className = 'svc'; el.id = 'n-' + id; el.style.left = d.x + 'px'; el.style.top = d.y + 'px';
+  el.innerHTML = `<span class="n">${d.n}</span><span class="ov ov-cg" data-k="cg">${d.cg}</span><span class="ov ov-cm" data-k="cm">${d.cm}</span><span class="ov ov-rp" data-k="rp">${d.rp}</span>`; graph.appendChild(el); });
+OVS.forEach(([k, lab]) => { const b = document.createElement('button'); b.className = 'btn'; b.textContent = lab; b.dataset.k = k; b.setAttribute('aria-pressed', k === ov); b.onclick = () => { ov = k; renderX(); }; $('ovs').appendChild(b); });
+function center(id) { const d = NODES[id]; return [d.x + 105, d.y + 34]; }
+const outP = id => [NODES[id].x + 210, NODES[id].y + 30], inP = id => [NODES[id].x - 4, NODES[id].y + 30];
+function drawEdges(t) {
+  const sv = $('edges'); let h = '';
+  const ec = ov === 'cg' ? css('--ins') : css('--muted');
+  h += `<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="${ov === 'cg' ? 6 : 7}" markerHeight="${ov === 'cg' ? 6 : 7}" orient="auto"><path d="M0 0L10 5L0 10z" fill="${ec}"/></marker></defs>`;
+  EDGES.forEach(([a, b]) => { const [x1, y1] = outP(a), [x2, y2] = inP(b), mx = (x1 + x2) / 2; h += `<path d="M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}" fill="none" stroke="${ec}" stroke-width="${ov === 'cg' ? 3 : 2}" opacity="${ov === 'cg' ? 1 : .6}" marker-end="url(#ah)"/>`; });
+  if (ov === 'rc') CLASSES.forEach((c, ci) => { const pts = c.path.flatMap((id, q) => q === 0 ? [outP(id)] : q === c.path.length - 1 ? [inP(id)] : [inP(id), outP(id)]); for (let k = 0; k < 3; k++) { const f = ((t / 2600) + k / 3 + ci * .11) % 1, seg = f * (pts.length - 1), i = Math.floor(seg), u = seg - i;
+      const p = [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * u, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * u + [0, -5, 5, 0][ci]]; h += `<circle cx="${p[0]}" cy="${p[1]}" r="7" fill="${css('--' + c.id)}"/>`; } });
+  sv.innerHTML = h;
+}
+function loop(t) { drawEdges(t); if (ov === 'rc' && open) raf = requestAnimationFrame(loop); }
+function renderX() {
+  $('v-out').setAttribute('aria-pressed', !open); $('v-in').setAttribute('aria-pressed', open); $('lid').classList.toggle('off', open);
+  document.querySelectorAll('#ovs .btn').forEach(b => { b.setAttribute('aria-pressed', b.dataset.k === ov); b.disabled = !open; });
+  document.querySelectorAll('.ov').forEach(e => e.classList.toggle('on', open && e.dataset.k === ov));
+  const lg = $('legend'); lg.hidden = !(open && ov === 'rc');
+  lg.innerHTML = CLASSES.map(c => `<span style="--dot:var(--${c.id})"><b>${c.name}</b> · ${c.note}</span>`).join('');
+  const cap = { cg: 'Call graph: which services a request calls, and in what order. The gateway fans out to three services, and each calls MySQL.',
+    cm: 'Concurrency model: how many requests each service can work on at once. visits-service runs 8 Tomcat threads, and each blocks on a database call.',
+    rp: 'Resource profile: what each service spends per request, such as CPU, memory and database time.',
+    rc: 'Request classes: subsets of requests that cost different amounts, even when they reach the same service. Visit history and new visits both go to visits-service, but visit history holds a database connection far longer. A controller can treat the two classes differently, for example by prioritizing one.' };
+  $('xcap').textContent = open ? cap[ov] : 'Controllers only see request rates, latency and CPU. Open the x-ray view to see what the code and configuration say about the same application.';
+  cancelAnimationFrame(raf); if (open && ov === 'rc' && !matchMedia('(prefers-reduced-motion: reduce)').matches) raf = requestAnimationFrame(loop); else drawEdges(800);
+}
+$('v-out').onclick = () => { open = false; renderX(); }; $('v-in').onclick = () => { open = true; renderX(); };
+renderX();
+
+const PSTEPS = [
+  ['Extract', 'Insight providers use LLM agents to read the code, configuration and telemetry, and run existing tools such as profilers. Here, the concurrency model provider works out how many requests visits-service can handle at once.'],
+  ['Publish', 'The provider publishes the insight to a shared registry, along with where it applies, what it was derived from, and how confident it is.'],
+  ['Query', 'A controller, here an overload controller, asks the registry for the concurrency model of visits-service.'],
+  ['Use', 'The insight comes back to the controller, which decides how to act on it. Other controllers can query the same insight later.']];
+let pstep = 0;
+function planeSVG() {
+  const L = css('--line'), E = css('--ext-line'), EB = css('--ext-bg'), EX = css('--ext'), R = css('--ins'), RB = css('--ins-bg'), RI = css('--ins-ink'), B = css('--ctl-line'), BB = css('--ctl-bg'), BI = css('--ctl'), A = css('--app'), AB = css('--app-bg'), S = css('--surface'), M = css('--muted');
+  const on = k => pstep >= k ? 1 : .25, act = k => pstep === k;
+  const box = (x, y, w, h, fill, stroke, txt, col, sub, k) => `<g opacity="${on(k)}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="${fill}" stroke="${stroke}" stroke-width="${act(k) ? 3.5 : 2}"/><text x="${x + 14}" y="${y + 28}" font-size="17" font-weight="700" fill="${col}">${txt}</text>${sub ? `<text x="${x + 14}" y="${y + 50}" font-size="13" fill="${M}">${sub}</text>` : ''}</g>`;
+  const arr = (x1, y1, x2, y2, col, k, lab, lx, ly) => `<g opacity="${on(k)}"><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${act(k) ? 4 : 2.5}" marker-end="url(#m${col.replace('#', '')})"/>${lab ? `<text x="${lx}" y="${ly}" font-size="13" font-weight="600" fill="${col}" text-anchor="middle">${lab}</text>` : ''}</g>`;
+  const mk = c => `<marker id="m${c.replace('#', '')}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${c}"/></marker>`;
+  let h = `<defs>${mk(E)}${mk(B)}${mk(R)}</defs>`;
+  h += `<rect x="190" y="20" width="530" height="360" rx="18" fill="${EB}" stroke="${E}" stroke-dasharray="8 6" stroke-width="2" opacity=".75"/><text x="208" y="46" font-size="16" font-weight="700" fill="${EX}">Application Insight Plane (AIP)</text>`;
+  h += box(8, 110, 140, 140, AB, A, 'Application', A, 'code, configs,', 0) + `<text x="22" y="180" font-size="13" fill="${M}" opacity="${on(0)}">telemetry</text>`;
+  h += box(210, 70, 200, 60, S, E, 'Call graph provider', EX, '', 0) + box(210, 150, 200, 60, S, E, 'Concurrency model', EX, 'provider · LLM agent + tools', 0) + box(210, 230, 200, 60, S, E, 'Performance model', EX, 'provider', 0);
+  h += box(500, 90, 200, 210, S, R, 'Insight registry', RI, 'Insights by kind and scope', 1);
+  ['call_graph', 'concurrency_model', 'performance_model'].forEach((k, i) => h += `<g opacity="${on(1)}"><rect x="514" y="${160 + i * 36}" width="172" height="28" rx="6" fill="${k === 'concurrency_model' && pstep >= 1 ? RB : S}" stroke="${R}" stroke-width="1.2"/><text x="524" y="${179 + i * 36}" font-size="12.5" font-family="IBM Plex Mono, monospace" fill="${RI}">${k}</text></g>`);
+  h += box(858, 60, 190, 60, S, B, 'Overload controller', BI, '', 2) + box(858, 130, 190, 48, S, B, 'Autoscaler', BI, '', 2) + box(858, 192, 190, 48, S, B, 'Load balancer', BI, '', 2) + box(858, 254, 190, 48, S, B, 'Tracer', BI, '', 2);
+  h += arr(148, 180, 205, 180, E, 0) + arr(410, 180, 495, 180, E, 1, 'publish', 452, 160);
+  h += `<g opacity="${on(2)}"><polyline points="910,60 910,38 600,38 600,84" fill="none" stroke="${B}" stroke-width="${act(2) ? 4 : 2.5}" marker-end="url(#m${B.replace('#', '')})"/><text x="812" y="30" font-size="13" font-weight="600" fill="${B}" text-anchor="middle">query (kind, scope)</text></g>`;
+  h += arr(700, 104, 853, 104, R, 3, 'insight', 778, 96);
+  h += `<g opacity="${on(3)}"><line x1="778" y1="108" x2="778" y2="146" stroke="${R}" stroke-width="1.5" stroke-dasharray="4 4"/><rect x="726" y="148" width="126" height="96" rx="10" fill="${RB}" stroke="${R}" stroke-width="${act(3) ? 3.5 : 2}"/><text x="738" y="170" font-size="12" font-family="IBM Plex Mono, monospace" fill="${RI}">concurrency_</text><text x="738" y="186" font-size="12" font-family="IBM Plex Mono, monospace" fill="${RI}">model</text><text x="738" y="210" font-size="11.5" fill="${M}">8 threads,</text><text x="738" y="226" font-size="11.5" fill="${M}">32 DB conns</text></g>`;
+  return h;
+}
+function renderPlane() { $('planesvg').innerHTML = planeSVG(); $('pcap').textContent = PSTEPS[pstep][1]; document.querySelectorAll('#psteps .btn').forEach((b, i) => b.setAttribute('aria-pressed', i === pstep)); }
+PSTEPS.forEach(([lab], i) => { const b = document.createElement('button'); b.className = 'btn'; b.textContent = `${i + 1}. ${lab}`; b.onclick = () => { pstep = i; renderPlane(); }; $('psteps').appendChild(b); });
+const nb = document.createElement('button'); nb.className = 'btn'; nb.textContent = 'Next →'; nb.onclick = () => { pstep = (pstep + 1) % PSTEPS.length; renderPlane(); }; $('psteps').appendChild(nb);
+renderPlane();
+
+const KINDS = [
+  ['Call graph', 'Which services a request calls, and in what order.'],
+  ['Information flow', 'How data moves from one service to the next.'],
+  ['Concurrency model', 'How many requests a service can work on at once, and what bounds it.'],
+  ['Request classes', 'Subsets of requests that take different paths or cost different amounts.'],
+  ['Resource profile', 'What a service or request class spends in CPU, memory and network.'],
+  ['Performance model', 'How latency and throughput change with load and resources.'],
+  ['Objectives', 'The latency or throughput targets the application must meet.']];
+const CTLS = ['Autoscaler', 'Load balancer', 'Overload controller', 'Scheduler', 'Tracer'];
+const USE = {
+  '0,0': 'Scale downstream services ahead of a burst, since it knows which services a request will reach.',
+  '0,2': 'Shed or delay requests at the entry point before they overload a downstream service.',
+  '0,4': 'Rule out impossible parent and child spans when reconstructing traces.',
+  '1,4': 'Link spans that carry the same request data, even without trace headers.',
+  '1,3': 'Keep services that exchange sensitive data on trusted hosts.',
+  '2,2': 'Bound in-flight requests by what the service can actually run in parallel, instead of probing for it.',
+  '2,0': 'Set a per-replica load target that matches the worker pool, so replicas are added before requests queue.',
+  '2,4': 'Know when a service handles requests asynchronously, which changes how its spans relate.',
+  '3,1': 'Route each class to the cluster or replica that serves it best.',
+  '3,2': 'Shed the cheap-to-retry class first, and protect latency-sensitive requests.',
+  '3,0': 'Scale for the class that is actually growing, instead of total request rate.',
+  '4,1': 'Separate CPU-heavy from I/O-heavy requests to reduce contention.',
+  '4,3': 'Pack services onto machines by their real CPU and memory demand.',
+  '4,0': 'Pick the resource to scale on, CPU or memory, per service.',
+  '5,1': 'Route traffic across clusters by predicted latency at the current load.',
+  '5,0': 'Predict how many replicas keep latency under a target.',
+  '5,3': 'Place work where it will finish within its deadline.',
+  '6,2': 'Prioritize requests whose latency target is tight.',
+  '6,0': 'Scale only as far as the objective requires.',
+  '6,1': 'Send latency-sensitive classes to the fastest backends.' };
+let sel = '2,2';
+function renderMx() {
+  let h = '<thead><tr><th></th>' + CTLS.map(c => `<th>${c}</th>`).join('') + '</tr></thead><tbody>';
+  KINDS.forEach(([k], i) => { h += `<tr><th class="rowh" scope="row">${k}</th>` + CTLS.map((c, j) => { const key = `${i},${j}`, has = key in USE;
+    return `<td><button class="${has ? 'has' : ''}" data-k="${key}" aria-pressed="${key === sel}" ${has ? '' : 'disabled'} aria-label="${k} for ${c}">${has ? 'Use case' : '·'}</button></td>`; }).join('') + '</tr>'; });
+  $('mx').innerHTML = h + '</tbody>';
+  $('mx').querySelectorAll('button.has').forEach(b => b.onclick = () => { sel = b.dataset.k; renderMx(); });
+  const [i, j] = sel.split(',').map(Number);
+  $('mq').textContent = `${KINDS[i][0]} → ${CTLS[j]}`; $('ma').textContent = USE[sel]; $('mdef').textContent = `${KINDS[i][0]}: ${KINDS[i][1]}`;
+}
+renderMx();
+
+const BASE = { threads: 8, pool: 32, log: 'Fetching visits for pets {}', jackson: '2.15.2', async: false };
+let st = { ...BASE }, ext = null, file = 'compose', changed = new Set();
+const RHO = 0.91;
+function files(s) { return {
+  compose: { name: 'docker-compose.yml', lines: [
+    'visits-service:', '  image: springcommunity/spring-petclinic-visits-service', '  deploy:', '    resources:', '      limits: { cpus: "2" }', '  environment:',
+    `    SERVER_TOMCAT_THREADS_MAX: "\${TOMCAT_MAX_THREADS:-${s.threads}}"`, '    SPRING_PROFILES_ACTIVE: docker,mysql',
+    `    SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE: "\${HIKARI_MAX_POOL:-${s.pool}}"`, '  depends_on: [config-server, mysql]'],
+    cite: { 6: 'threads', 8: 'pool' } },
+  java: { name: 'VisitResource.java', lines: [
+    '@RestController', '@RequestMapping("/pets")', 'class VisitResource {', '  private final VisitRepository visitRepository;', '',
+    '  @GetMapping("visits")', `  ${s.async ? 'Mono<Visits>' : 'Visits'} read(@RequestParam("petId") List<Integer> petIds) {`,
+    `    log.info("${s.log}", petIds);`, `    return ${s.async ? 'Mono.fromCallable(() -> new Visits(visitRepository.findByPetIdIn(petIds)))' : 'new Visits(visitRepository.findByPetIdIn(petIds));'}`, '  }', '}'],
+    cite: { 6: 'async', 8: 'async' } },
+  pom: { name: 'pom.xml', lines: [
+    '<dependency>', '  <groupId>org.springframework.boot</groupId>', `  <artifactId>spring-boot-starter-${s.async ? 'webflux' : 'web'}</artifactId>`, '</dependency>',
+    '<dependency>', '  <groupId>com.zaxxer</groupId>', '  <artifactId>HikariCP</artifactId>', '</dependency>', '<dependency>',
+    '  <groupId>com.fasterxml.jackson.core</groupId>', '  <artifactId>jackson-databind</artifactId>', `  <version>${s.jackson}</version>`, '</dependency>'],
+    cite: { 2: 'async', 6: 'pool' } } }; }
+const CHANGES = [
+  { id: 'threads', lab: 'Double the thread pool', sub: 'TOMCAT_MAX_THREADS 8 → 16', f: 'compose', line: 6, apply: s => s.threads = s.threads === 8 ? 16 : 8 },
+  { id: 'pool', lab: 'Shrink the database pool', sub: 'HIKARI_MAX_POOL 32 → 4', f: 'compose', line: 8, apply: s => s.pool = s.pool === 32 ? 4 : 32 },
+  { id: 'log', lab: 'Reword a log message', sub: 'VisitResource.java, line 8', f: 'java', line: 7, apply: s => s.log = s.log === BASE.log ? 'Loading visit history for {}' : BASE.log },
+  { id: 'jackson', lab: 'Bump the JSON library', sub: 'jackson-databind 2.15.2 → 2.17.1', f: 'pom', line: 11, apply: s => s.jackson = s.jackson === BASE.jackson ? '2.17.1' : BASE.jackson },
+  { id: 'async', lab: 'Switch to non-blocking handlers', sub: 'Spring MVC → WebFlux', f: 'java', line: 6, apply: s => s.async = !s.async }];
+function model(s) {
+  if (s.async) return { exec: 'event loop (Netty), DB calls offloaded', limits: `event-loop threads: 2 (one per CPU)\nhikari.max_pool=${s.pool}`, block: 'none on the event loop, JDBC runs on a bounded scheduler',
+    cap: Math.floor(s.pool / RHO) + 1, why: `No worker-thread bound any more. The database pool is the limit: about ${Math.floor(s.pool / RHO)} requests can hold a connection at once, plus one spare.` };
+  const dbcap = Math.floor(s.pool / RHO), cap = Math.min(s.threads, dbcap) + 1;
+  const why = s.threads <= dbcap ? `${s.threads} worker threads run out before the ${s.pool} database connections do, so the limit is ${s.threads} plus one spare.`
+    : `The ${s.pool} database connections run out first (about ${dbcap} requests at a time), so the limit is ${dbcap} plus one spare.`;
+  return { exec: 'blocking thread pool (Tomcat)', limits: `tomcat.max_threads=${s.threads}\nhikari.max_pool=${s.pool}`, block: 'JDBC call via HikariCP', cap, why };
+}
+function renderCode() {
+  const F = files(st);
+  $('tabs').innerHTML = Object.entries(F).map(([k, f]) => `<button role="tab" aria-selected="${k === file}" data-f="${k}">${f.name}</button>`).join('');
+  $('tabs').querySelectorAll('button').forEach(b => b.onclick = () => { file = b.dataset.f; renderCode(); });
+  const f = F[file];
+  $('src').innerHTML = f.lines.map((l, i) => { const cited = ext && f.cite[i] && ext.cites.includes(file + ':' + i), chg = changed.has(file + ':' + i);
+    return `<span class="ln${cited ? ' cite' : ''}${chg ? ' chg' : ''}" data-n="${i + 1}">${l.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span>`; }).join('');
+}
+function cardBody(m, prev) {
+  const row = (k, v, pv) => `<span class="k">${k}:</span> ${pv !== undefined && pv !== v ? `<span class="new">${v}</span>` : v}`;
+  return [row('execution_model', m.exec, prev && prev.exec), row('limits', m.limits.replace(/\n/g, '\n        '), prev && prev.limits.replace(/\n/g, '\n        ')), row('blocking_points', m.block, prev && prev.block),
+    `<span class="k">basis:</span> source, Maven deps, deployment env vars`, `<span class="k">confidence:</span> 0.88`].join('\n');
+}
+let busy = false;
+async function fetchInsight() {
+  if (busy) return; busy = true; $('fetch').disabled = true;
+  const log = $('log'); log.innerHTML = '';
+  const add = async (txt, skip) => { const li = document.createElement('li'); if (skip) li.className = 'skip'; li.innerHTML = `<span class="ic">${skip ? '–' : '✓'}</span><span>${txt}</span>`; log.appendChild(li);
+    await new Promise(r => setTimeout(r, 30)); li.classList.add('in'); await new Promise(r => setTimeout(r, matchMedia('(prefers-reduced-motion: reduce)').matches ? 50 : 650)); };
+  const m = model(st), prev = ext ? ext.m : null;
+  if (ext) {
+    const touched = [...changed].filter(c => ext.cites.includes(c));
+    await add(`Compared the code with the last extraction: ${changed.size ? changed.size + ' changed line' + (changed.size > 1 ? 's' : '') : 'no changes'}.`);
+    if (!touched.length) {
+      await add(changed.size ? 'None of the changed lines are ones this insight was built from.' : 'Nothing to check.', true);
+      await add('Kept the existing insight. No new extraction was needed.');
+      $('pstat').className = 'status fresh'; $('pstat').textContent = 'valid · reused';
+      changed.clear(); renderCode(); busy = false; $('fetch').disabled = false; return;
+    }
+    await add(`A changed line is one the insight cites (${touched.map(c => { const [f, i] = c.split(':'); return files(st)[f].name + ':' + (+i + 1); }).join(', ')}). Extracting again.`);
+  } else await add('Found the server framework in pom.xml: Spring Boot web, which runs requests on a Tomcat thread pool.');
+  if (!ext || st.async !== (prev && prev.exec.startsWith('event'))) await add(st.async ? 'VisitResource now returns Mono: requests run on the event loop, not one thread each.' : 'VisitResource blocks on a JDBC call for each request.');
+  await add(st.async ? `Event loop threads do not bound concurrency. The database pool (${st.pool}) does.` : `Worker pool: ${st.threads} threads (docker-compose.yml:7). Database pool: ${st.pool} connections (docker-compose.yml:9).`);
+  await add(`Profiled the service: a request holds a database connection about ${Math.round(RHO * 100)}% of its time.`);
+  await add('Audit pass: each value is backed by a cited line. Published the insight.');
+  ext = { m, cites: st.async ? ['java:6', 'java:8', 'pom:2', 'compose:8'] : ['compose:6', 'compose:8', 'java:6', 'java:8', 'pom:2', 'pom:6'] };
+  $('icard').hidden = false; $('ibody').innerHTML = cardBody(m, prev);
+  $('limit').hidden = false; $('lv').textContent = m.cap; $('lwhy').textContent = m.why;
+  $('pstat').className = 'status fresh'; $('pstat').textContent = prev ? 'valid · re-extracted' : 'valid';
+  changed.clear(); renderCode(); busy = false; $('fetch').disabled = false;
+}
+function renderChanges() {
+  $('changes').innerHTML = CHANGES.map(c => `<button class="btn" data-c="${c.id}" aria-pressed="${st[c.id] !== BASE[c.id]}">${c.lab}<small>${c.sub}${st[c.id] !== BASE[c.id] ? ' · applied, press again to undo' : ''}</small></button>`).join('');
+  $('changes').querySelectorAll('button').forEach(b => b.onclick = () => { const c = CHANGES.find(x => x.id === b.dataset.c); c.apply(st); changed.add(c.f + ':' + c.line); file = c.f;
+    if (c.id === 'async') { changed.add('java:8'); changed.add('pom:2'); }
+    if (ext) { $('pstat').className = 'status stale'; $('pstat').textContent = 'code changed · fetch to check'; }
+    renderCode(); renderChanges(); });
+}
+$('fetch').onclick = fetchInsight;
+$('reset').onclick = () => { st = { ...BASE }; ext = null; changed.clear(); $('log').innerHTML = ''; $('icard').hidden = true; $('limit').hidden = true; $('pstat').className = 'status'; $('pstat').textContent = 'no insight yet'; renderCode(); renderChanges(); };
+renderCode(); renderChanges();
+
+const PERF = {"A": {"default": [[20, 77.52], [40, 73.73], [60, 71.98], [80, 71.47], [100, 71.34], [120, 72.42], [140, 110.14], [160, 111.22], [180, 108.58], [200, 111.7]], "aip": [[20, 75.88], [40, 72.98], [60, 71.92], [80, 71.16], [100, 71.44], [120, 70.61], [140, 77.11], [160, 82.94], [180, 85.55], [200, 90.89]]},
+  "B": {"default": [[20, 77.2], [40, 73.41], [60, 72.35], [80, 118.58], [100, 120.63]], "aip": [[20, 76.69], [40, 72.77], [60, 71.99], [80, 89.45], [100, 95.57]]}};
+const CFG = { A: ['8 threads, 32 DB connections', 'The thread pool is the bottleneck, so the insight caps Envoy at 9. Up to 30% lower p95.', 130, 200], B: ['32 threads, 4 DB connections', 'The database pool is the bottleneck, so the insight caps Envoy at 5. Up to 25% lower p95.', 130, 100] };
+let cfg = 'A';
+['A', 'B'].forEach(k => { const b = document.createElement('button'); b.className = 'btn'; b.textContent = CFG[k][0]; b.onclick = () => { cfg = k; drawChart(); }; b.dataset.k = k; $('cfg').appendChild(b); });
+function drawChart() {
+  document.querySelectorAll('#cfg .btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === cfg));
+  const d = PERF[cfg], xmax = CFG[cfg][3], W = 620, H = 330, m = { l: 56, r: 16, t: 16, b: 54 };
+  const X = v => m.l + (v / xmax) * (W - m.l - m.r), Y = v => m.t + (1 - (v - 60) / 70) * (H - m.t - m.b);
+  let h = '';
+  for (let v = 60; v <= 130; v += 10) h += `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="${css('--line')}"/><text x="${m.l - 8}" y="${Y(v) + 4}" text-anchor="end">${v}</text>`;
+  for (let v = 0; v <= xmax; v += xmax / 5) h += `<text x="${X(v)}" y="${H - m.b + 20}" text-anchor="middle">${v}</text>`;
+  h += `<text x="${(W + m.l) / 2}" y="${H - 8}" text-anchor="middle">offered load (requests/s)</text><text transform="translate(16 ${(H - m.b) / 2}) rotate(-90)" text-anchor="middle">p95 latency (ms)</text>`;
+  const path = a => a.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join(' ');
+  h += `<path d="${path(d.default)}" fill="none" stroke="${css('--muted')}" stroke-width="2.5" stroke-dasharray="8 6"/><path d="${path(d.aip)}" fill="none" stroke="${css('--ins')}" stroke-width="3.5"/>`;
+  const ld = d.default[d.default.length - 1], la = d.aip[d.aip.length - 1];
+  h += `<text x="${X(ld[0]) - 4}" y="${Y(ld[1]) - 10}" text-anchor="end" style="fill:${css('--muted')};font-weight:600">Default Envoy</text><text x="${X(la[0]) - 4}" y="${Y(la[1]) + 22}" text-anchor="end" style="fill:${css('--ins')};font-weight:600">With the insight</text>`;
+  $('p95').innerHTML = h; $('cfgnote').textContent = CFG[cfg][1];
+}
+drawChart();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { drawChart(); renderPlane(); renderX(); });
+new MutationObserver(() => { drawChart(); renderPlane(); renderX(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+
+const VTT = {"v2": "WEBVTT\n\n1\n00:00:00.000 --> 00:00:08.740\nHi, I'm Sachin Ashok from UIUC and today, I'll argue that the cloud should adapt to its applications and not the other way around.\n\n2\n00:00:08.740 --> 00:00:15.900\nOver the years, our group has built several systems that manage microservices better by adapting to each application.\n\n3\n00:00:15.900 --> 00:00:23.200\nEach relied on some application insight, like a call graph or a performance model, and each time, we built a new way to extract it.\n\n4\n00:00:23.200 --> 00:00:24.240\nAnd it's not just us.\n\n5\n00:00:24.240 --> 00:00:33.680\nAcross academia, research prototypes rely on the same few insights, and we've identified several others that could be useful but were hard to extract until now.\n\n6\n00:00:33.680 --> 00:00:45.300\nAnd even when extraction is possible, it's brittle and tightly coupled to one specific system, so very few of these ideas ever reach production, where controllers still rely on basic signals.\n\n7\n00:00:45.300 --> 00:00:52.060\nWithout these insights, the infrastructure can't adapt to applications, so applications have had to adapt to it instead.\n\n8\n00:00:52.060 --> 00:00:57.120\nWe argue that LLM agents mark an inflection point that can flip this dynamic.\n\n9\n00:00:57.120 --> 00:01:02.640\nThey can read code and telemetry, generalize across frameworks, and invoke existing tools.\n\n10\n00:01:02.640 --> 00:01:12.900\nSo we propose an Application Insight Plane, or AIP, where insight providers use LLM agents to extract and maintain insights, which any controller can query.\n\n11\n00:01:12.900 --> 00:01:17.940\nEach insight is extracted once, kept valid, and reused by any controller.\n\n12\n00:01:17.940 --> 00:01:19.880\nLet me walk you through a use case.\n\n13\n00:01:19.880 --> 00:01:26.080\nEnvoy's adaptive concurrency controller decides how many requests to admit by probing latency.\n\n14\n00:01:26.080 --> 00:01:34.400\nUnder overload, Envoy sets the limit to thirteen, but the service has only eight worker threads, so the rest just queue and inflate latency.\n\n15\n00:01:34.400 --> 00:01:41.260\nWhat's interesting is that the thread count is set right in the service's code, which could've been useful for Envoy to know.\n\n16\n00:01:41.260 --> 00:01:46.300\nWith AIP's concurrency insight, Envoy can now cap its limit at nine.\n\n17\n00:01:46.300 --> 00:01:50.760\nAnd this enables Envoy to cut tail latency by up to thirty percent.\n\n18\n00:01:50.760 --> 00:01:56.480\nTo test the generality of this AIP approach, we ran our provider on eight applications.\n\n19\n00:01:56.480 --> 00:02:04.700\nIt extracted a concurrency model for all one hundred services with source code, and abstained where only deployment files were available.\n\n20\n00:02:04.700 --> 00:02:12.860\nThese are promising results, but many open questions remain, such as which insights to standardize, how to keep them valid, and how to share them safely.\n\n21\n00:02:12.860 --> 00:02:15.830\nPlease check out our poster, and join us at the booth to discuss more.\n"};
+Object.entries(VTT).forEach(([id, txt]) => { const v = $(id); if (!v) return; const tr = document.createElement('track'); tr.kind = 'captions'; tr.srclang = 'en'; tr.label = 'English'; tr.src = URL.createObjectURL(new Blob([txt], { type: 'text/vtt' })); v.appendChild(tr); });
+$('copybib').onclick = () => { const t = $('bib').textContent;
+  navigator.clipboard.writeText(t).then(() => $('copymsg').textContent = 'Copied.').catch(() => { const r = document.createRange(); r.selectNodeContents($('bib')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $('copymsg').textContent = 'Selected. Press Ctrl+C or ⌘C to copy.'; }); };
+</script>
+
+</body></html>
