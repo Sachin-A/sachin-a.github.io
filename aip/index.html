@@ -13,8 +13,8 @@
   --ctl: #1a4fae; --ctl-line: #2f66d0; --ctl-bg: #e8f0fd;
   --app: #3d4855; --app-bg: #e6eaee;
   --gold: #8a6512; --gold-bg: #faf3dc;
-  --ok: #2e7d4f; --warn: #a8641a;
-  --c1: #2f66d0; --c2: #c2571a; --c3: #7a3fb0; --c4: #2e7d4f;
+  --ok: #2e7d4f; --warn: #a8641a; --use: var(--ink); --btn-line: #b9c1cb; --try-bg: #fff1e5; --try-line: #e0620d; --try-ink: #8a3a06;
+  --c1: #2f66d0; --c2: #7a3fb0; --c3: #b8327a; --c4: #2e7d4f;
   --display: "DM Sans", "Helvetica Neue", Arial, sans-serif;
   --text: "DM Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -23,38 +23,40 @@
   --bg: #12161c; --surface: #1a2028; --ink: #eef1f5; --body: #cfd6de; --muted: #98a3b0; --line: #2e3742; --soft: #222a33;
   --ins: #e07b7c; --ins-ink: #f0a3a4; --ins-bg: #3a2324; --ext: #6fcdbf; --ext-line: #4fb3a5; --ext-bg: #183631;
   --ctl: #8fb4ff; --ctl-line: #6d9bf5; --ctl-bg: #1c2a45; --app: #c3ccd6; --app-bg: #26303b; --gold: #e3bf6a; --gold-bg: #3a3220;
-  --ok: #6fd39a; --warn: #f0a85a; --c1: #7fa8ff; --c2: #ff9a5c; --c3: #c39af0; --c4: #6fd39a; color-scheme: dark } }
+  --ok: #6fd39a; --warn: #f0a85a; --use: var(--ink); --btn-line: #4a5563; --try-bg: #3a2414; --try-line: #ff8a3d; --try-ink: #ffd2b0; --c1: #7fa8ff; --c2: #c39af0; --c3: #f07ab8; --c4: #6fd39a; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #12161c; --surface: #1a2028; --ink: #eef1f5; --body: #cfd6de; --muted: #98a3b0; --line: #2e3742; --soft: #222a33;
   --ins: #e07b7c; --ins-ink: #f0a3a4; --ins-bg: #3a2324; --ext: #6fcdbf; --ext-line: #4fb3a5; --ext-bg: #183631;
   --ctl: #8fb4ff; --ctl-line: #6d9bf5; --ctl-bg: #1c2a45; --app: #c3ccd6; --app-bg: #26303b; --gold: #e3bf6a; --gold-bg: #3a3220;
-  --ok: #6fd39a; --warn: #f0a85a; --c1: #7fa8ff; --c2: #ff9a5c; --c3: #c39af0; --c4: #6fd39a; color-scheme: dark }
+  --ok: #6fd39a; --warn: #f0a85a; --use: var(--ink); --btn-line: #4a5563; --try-bg: #3a2414; --try-line: #ff8a3d; --try-ink: #ffd2b0; --c1: #7fa8ff; --c2: #c39af0; --c3: #f07ab8; --c4: #6fd39a; color-scheme: dark }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body { background: var(--bg); color: var(--body); font: 400 17px/1.6 var(--text); margin: 0; }
 .wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-h1, h2, h3 { font-family: var(--display); color: var(--ink); text-wrap: balance; margin: 0; }
+h1, h2, h3 { font-family: var(--display); color: var(--ink); margin: 0; }
+h1 { text-wrap: balance; }
 h1 { font-size: clamp(30px, 5vw, 52px); line-height: 1.08; font-weight: 800; letter-spacing: -.02em; }
 h1 .accent { color: var(--ins); }
-h2 { font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; font-weight: 700; letter-spacing: -.01em; }
+h2 { font-size: clamp(22px, 2.8vw, 30px); line-height: 1.2; font-weight: 700; letter-spacing: -.01em; text-wrap: pretty; }
 h3 { font-size: 20px; font-weight: 700; }
 p { margin: 0; }
 code, .mono { font-family: var(--mono); font-size: .9em; }
 a { color: var(--ctl); }
 button { font: inherit; }
 :focus-visible { outline: 3px solid var(--ctl-line); outline-offset: 2px; border-radius: 6px; }
-.eyebrow { font: 600 13px/1 var(--text); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 section { padding-block: 56px; border-top: 1px solid var(--line); }
-.sec-head { display: grid; gap: 12px; margin-bottom: 24px; }
+.sec-head { display: grid; gap: 10px; margin-bottom: 22px; }
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
-.btn { appearance: none; border: 2px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 8px 14px; font-weight: 600; font-size: 15px; cursor: pointer; }
-.btn:hover { border-color: var(--muted); }
-.btn[aria-pressed="true"] { border-color: var(--ink); background: var(--soft); }
-.btn.primary { background: var(--ext); border-color: var(--ext); color: #fff; }
-:root[data-theme="dark"] .btn.primary { color: #0d1a18; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn.primary { color: #0d1a18; } }
-.btn.primary:disabled { opacity: .45; cursor: default; }
+.btn { appearance: none; display: inline-block; border: 1.5px solid var(--btn-line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 8px 18px; font-weight: 600; font-size: 15px; line-height: 1.3; cursor: pointer; text-decoration: none; box-shadow: 0 1px 0 var(--btn-line), 0 2px 6px rgba(20, 26, 34, .10); transition: transform .12s, box-shadow .12s, background .12s; }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 2px 0 var(--btn-line), 0 6px 14px rgba(20, 26, 34, .14); }
+.btn:active { transform: translateY(0); box-shadow: none; }
+.btn[aria-pressed="true"], .btn.primary { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.btn:disabled { opacity: .45; cursor: default; transform: none; box-shadow: none; }
+.try { display: flex; gap: 10px; margin-top: 4px; align-items: flex-start; background: var(--try-bg); border-left: 4px solid var(--try-line); border-radius: 10px; padding: 12px 16px; color: var(--try-ink); font-weight: 600; margin-bottom: 14px; }
+.try svg { color: var(--try-line); }
+.try ul { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
+.try svg { flex: none; margin-top: 2px; width: 18px !important; height: 18px !important; }
 .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.hint { color: var(--ctl); font-weight: 600; }
 .scroll-x { overflow-x: auto; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 
@@ -63,10 +65,18 @@ header { padding-block: 48px 40px; }
 .authors b { font-weight: 700; }
 .authors sup, .aff sup { font-size: .62em; }
 .aff { color: var(--muted); font-size: 15px; margin-top: 4px; }
-.venue { margin-top: 14px; color: var(--muted); font-size: 15px; }
 .links { margin-top: 22px; }
 .links a { text-decoration: none; }
-.thesis { margin-top: 28px; font-size: 20px; color: var(--ink); }
+.thesis { margin: 28px 0 0; padding-left: 22px; font-size: 19px; color: var(--ink); display: grid; gap: 6px; }
+.arg { margin: 30px 0 34px; display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 14px 22px; font-size: 18px; color: var(--ink); }
+.arg dt { font-weight: 700; }
+.arg dd { margin: 0; }
+.arg b { color: var(--ins); }
+.arg ol { margin: 6px 0 4px; padding-left: 24px; display: grid; gap: 2px; }
+.arg a { font-size: 14px; color: var(--muted); margin-left: 6px; white-space: nowrap; }
+.arg a::after { content: " →"; }
+@media (max-width: 700px) { .arg { grid-template-columns: minmax(0, 1fr); gap: 2px; font-size: 17px; } .arg dd { margin-bottom: 12px; } }
+.thesis ol { margin: 6px 0 0; padding-left: 24px; display: grid; gap: 2px; }
 .credit { font-size: 15px; color: var(--muted); }
 @media (max-width: 700px) { br.wide { display: none; } }
 .credit a { color: var(--ink); font-weight: 600; }
@@ -74,35 +84,73 @@ header { padding-block: 48px 40px; }
 .authors a.me:hover { border-bottom-color: currentColor; }
 .thesis b { color: var(--ins); }
 
-.xray { position: relative; padding: 18px; min-height: 420px; overflow: hidden; }
-.app-graph { position: relative; height: 380px; width: 1060px; }
-.svc { position: absolute; width: 210px; padding: 10px 12px; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; font-size: 14px; line-height: 1.35; z-index: 2; }
+.xray { position: relative; padding: 18px; }
+.app-graph { position: relative; height: 480px; width: 1060px; }
+.sub { margin-top: 10px; }
+#ovs.off .lab { opacity: .45; }
+.sub .lab, .controls .lab { font-weight: 600; color: var(--ink); }
+.sigs { display: grid; gap: 8px; margin-top: 6px; }
+.figwrap { position: relative; overflow: hidden; }
+.app-graph { transform-origin: 0 0; }
+.narrow .legend { position: static; width: auto; margin: 10px 0 4px; }
+.sig { display: grid; gap: 2px; border-radius: 10px; padding: 10px 14px; }
+.sig .tag { font-weight: 700; }
+.sig .tag small { font-weight: 400; font-size: 1em; }
+.sl { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 2px; }
+.sl b { font-weight: 600; }
+.adv .sl li { opacity: .55; padding: 2px 8px; margin: 0 -8px; border-radius: 6px; }
+.adv .sl li.on { opacity: 1; background: color-mix(in srgb, var(--ins) 14%, transparent); font-weight: 600; }
+.sl li.more { opacity: .7; }
+.sig.basic { background: var(--gold-bg); color: var(--gold); }
+.sig.adv { background: var(--ins-bg); color: var(--ins-ink); }
+.sig[hidden] { display: none; }
+.svc { position: absolute; width: 170px; padding: 10px 12px; background: var(--surface); border: 2px solid var(--line); border-radius: 12px; font-size: 14px; line-height: 1.35; z-index: 2; }
 .svc .n { font-weight: 700; color: var(--ink); display: block; }
 .ov { display: none; margin-top: 6px; font-size: 13px; }
 .ov.on { display: block; }
-.ov-cm { color: var(--ext); } .ov-rp { color: var(--warn); } .ov-cg { color: var(--ins-ink); }
-.lid { position: absolute; inset: 0; background: var(--app); display: grid; place-items: center; text-align: center; color: var(--bg); z-index: 5; transition: opacity .6s; }
+.ov { color: var(--ins-ink); }
+.lid { position: absolute; left: 120px; top: 10px; width: 670px; height: 360px; border-radius: 16px; background: var(--app); display: grid; place-items: center; text-align: center; color: var(--bg); z-index: 5; transition: opacity .6s; }
 .lid.off { opacity: 0; pointer-events: none; }
 .lid p { margin: 0 auto; }
-.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 14px; margin-top: 12px; }
-.legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--dot); }
+.legend { position: absolute; left: 812px; top: 30px; width: 240px; display: grid; gap: 14px; font-size: 14px; z-index: 3; }
+.legend > span { display: block; padding-left: 20px; position: relative; }
+.legend .nt { color: var(--muted); }
+.legend > span.plain { padding-left: 0; } .legend > span.plain::before { display: none; }
+.ov code { font: 11.5px var(--mono); background: var(--ins-bg); color: var(--ins-ink); border-radius: 4px; padding: 0 4px; margin: 0 3px 3px 0; display: inline-block; }
+.io { display: block; } .io > span { display: inline-block; width: 28px; font-size: 11px; font-weight: 700; color: var(--muted); } .io em { font-size: 12px; color: var(--muted); }
+.slots { display: flex; flex-wrap: wrap; align-items: center; gap: 3px; margin: 2px 0 3px; max-width: 150px; } .slots i { width: 11px; height: 11px; border-radius: 2px; background: var(--ins); }
+.slots.sm i { width: 6px; height: 6px; border-radius: 1px; background: color-mix(in srgb, var(--ins) 55%, var(--surface)); gap: 2px; } .slots em { font-style: normal; font-size: 11px; line-height: 11px; color: var(--muted); }
+.ov b { display: block; font-weight: 600; font-size: 12px; margin-bottom: 4px; }
+.loop { font-size: 18px; color: var(--ins); line-height: 1; }
+.stack { display: flex; height: 12px; border-radius: 6px; overflow: hidden; margin: 4px 0 4px; } .stack i { display: block; height: 100%; }
+.spark { display: block; width: 146px; height: 34px; margin-top: 2px; }
+.legend > span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 3px; position: absolute; left: 0; top: 4px; background: var(--dot); border-radius: 50% !important; }
 .legend[hidden] { display: none; }
 #edges { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
-.xcap { margin-top: 14px; color: var(--body); min-height: 3.2em; }
 
 .plane { padding: 16px; }
-.plane svg { display: block; width: 100%; min-width: 760px; height: auto; }
-.steps { margin-top: 14px; }
-.stepcap { margin-top: 12px; min-height: 3.2em; }
+.plane svg { display: block; width: 100%; height: auto; }
+.stepcap { margin: 14px 0; padding-left: 22px; min-height: 5em; display: grid; gap: 4px; align-content: start; }
 
-.mx { border-collapse: separate; border-spacing: 6px; min-width: 760px; }
-.mx th { font: 600 14px/1.25 var(--text); color: var(--ink); text-align: left; padding: 4px 6px; vertical-align: bottom; }
-.mx th.rowh { color: var(--ins-ink); white-space: nowrap; }
-.mx td button { width: 100%; min-height: 44px; border: 2px solid var(--line); background: var(--surface); border-radius: 10px; cursor: pointer; font-size: 13px; color: var(--muted); }
-.mx td button.has { background: var(--ins-bg); border-color: color-mix(in srgb, var(--ins) 35%, var(--line)); color: var(--ins-ink); font-weight: 600; }
-.mx td button[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink) inset; }
-.mdetail { padding: 18px 20px; margin-top: 14px; display: grid; gap: 6px; }
-.mdetail .q { font-weight: 700; color: var(--ink); }
+.uses { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 18px; align-items: start; }
+@media (max-width: 900px) { .uses { grid-template-columns: minmax(0, 1fr); } }
+.mx { border-collapse: separate; border-spacing: 6px; width: 100%; table-layout: fixed; }
+.mx col.rowc { width: 150px; }
+.mxl { display: none; }
+@media (max-width: 700px) { .mx { display: none; } .mxl { display: grid; gap: 14px; }
+  .mxr p { font-weight: 700; margin-bottom: 6px; } .mxr > div { display: flex; flex-wrap: wrap; gap: 6px; }
+  .mxr .btn { font-size: 13px; padding: 6px 12px; } .mxr .na { display: inline-block; font-size: 13px; padding: 5px 12px; color: var(--muted); border: 1.5px dashed var(--line); border-radius: 999px; } }
+.mx th { font: 600 14px/1.25 var(--text); color: var(--ctl); text-align: center; padding: 4px 2px; vertical-align: bottom; }
+.mx th.rowh { color: var(--ins-ink); white-space: nowrap; text-align: left; }
+.mx td { text-align: center; color: var(--muted); }
+.mx td .btn { width: 100%; padding: 7px 6px; font-size: 13px; }
+.mx .na { display: block; height: 35px; border: 1.5px dashed var(--line); border-radius: 999px; }
+.mdetail { padding: 18px 20px; display: grid; gap: 10px; position: sticky; top: 16px; }
+.mdetail dt { font-weight: 700; }
+.mdetail dd { margin: 0 0 10px; }
+.mdetail dl { margin: 0; }
+.ins { color: var(--ins-ink); } .ctl { color: var(--ctl); } .ext { color: var(--ext); } .gold { color: var(--gold); } .use { color: var(--use); }
+.lead { font-size: 19px; color: var(--ink); }
 
 .play { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 16px; }
 @media (max-width: 860px) { .play { grid-template-columns: minmax(0, 1fr); } }
@@ -131,90 +179,124 @@ pre.src .chg { background: color-mix(in srgb, var(--warn) 18%, transparent); box
 .icard .bd .k { color: var(--muted); }
 .icard .bd .new { background: color-mix(in srgb, var(--warn) 22%, transparent); border-radius: 4px; }
 .limit { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.bn { display: grid; gap: 8px; }
+.bn .lab { font-weight: 600; color: var(--ink); }
+.bnr { display: grid; grid-template-columns: 150px 1fr 56px 84px; gap: 10px; align-items: center; font-size: 14px; }
+.bnr .bar { height: 14px; border-radius: 7px; background: var(--soft); overflow: hidden; }
+.bnr .bar i { display: block; height: 100%; border-radius: 7px; background: var(--muted); transition: width .6s; }
+.bnr.on .bar i { background: var(--ins); }
+.bnr b { font-variant-numeric: tabular-nums; text-align: right; }
+.bnr em { font-style: normal; font-weight: 700; color: var(--ins-ink); }
+@media (max-width: 560px) { .bnr { grid-template-columns: 1fr 64px; } .bnr .bar { grid-column: 1 / -1; grid-row: 2; } .bnr em { grid-column: 1 / -1; } }
 .limit .v { font: 800 40px/1 var(--display); color: var(--ctl); font-variant-numeric: tabular-nums; }
 .limit .why { font-size: 14px; color: var(--muted); }
-.changes { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-.changes .btn { text-align: left; font-weight: 500; }
-.changes .btn small { display: block; color: var(--muted); font-weight: 400; font-size: 13px; }
+.controls { padding: 16px; display: grid; gap: 14px; margin-bottom: 16px; }
+.controls .lab { font-weight: 600; color: var(--ink); }
+.changes { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.changes .btn { text-align: left; border-radius: 14px; min-height: 84px; display: flex; flex-direction: column; justify-content: center; }
+@media (max-width: 700px) { .changes { grid-template-columns: 1fr 1fr; } .changes .btn { min-height: 64px; padding: 8px 12px; font-size: 14px; } pre.src { font-size: 12px; min-height: 0; } pre.src .ln { white-space: pre-wrap; word-break: break-all; padding-left: calc(14px + 2.2em); text-indent: -2.2em; } pre.src .ln::before { width: 2.2em; text-indent: 0; } }
+.changes .btn small { display: block; font-weight: 400; font-size: 13px; opacity: .75; }
 .note { font-size: 13px; color: var(--muted); }
 
 .res { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 16px; }
 @media (max-width: 860px) { .res { grid-template-columns: minmax(0, 1fr); } }
-.res .panel { padding: 18px 20px; display: grid; gap: 10px; align-content: start; }
+.res .panel { padding: 18px 20px; display: grid; gap: 12px; align-content: start; }
 .res h3 { color: var(--ins-ink); }
 .res ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chips span { font: 12.5px var(--mono); color: var(--ext); border: 1.5px solid var(--ext-line); border-radius: 999px; padding: 3px 10px; background: var(--surface); }
+.res .lab { font-weight: 600; color: var(--ink); }
+.mech { display: grid; gap: 5px; }
+.mrow { display: grid; grid-template-columns: minmax(0, 1.6fr) 1fr 28px; gap: 10px; align-items: center; font-size: 14px; }
+.mrow .bar { height: 12px; border-radius: 6px; background: var(--ext-bg); overflow: hidden; }
+.mrow .bar i { display: block; height: 100%; background: var(--ext); border-radius: 6px; }
+.mrow b { text-align: right; font-variant-numeric: tabular-nums; color: var(--ext); }
+.chips span { font: 13px var(--mono); color: var(--ext); border-radius: 6px; padding: 2px 8px; background: var(--ext-bg); }
 .chart svg { width: 100%; height: auto; display: block; }
-.chart text { fill: var(--muted); font: 13px var(--text); }
+.chart text { fill: var(--muted); font: 16px var(--text); }
+.verdict { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; }
+.verdict dt { font-weight: 700; color: var(--ink); }
+.verdict dd { margin: 0; }
 
 .talks { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; max-width: 820px; }
 .talks .panel { padding: 14px; display: grid; gap: 10px; }
 .talks video { width: 100%; border-radius: 10px; background: #000; aspect-ratio: 16 / 9; max-width: 100%; }
 
 .qs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-.qs details { padding: 16px 18px; }
-.qs summary { cursor: pointer; font-weight: 700; color: var(--ink); font-size: 18px; }
-.qs details p { margin-top: 10px; }
+.qs .panel { padding: 16px 18px; }
+.qs h3 { font-size: 18px; margin-bottom: 6px; }
 footer { padding-block: 40px 64px; border-top: 1px solid var(--line); }
 .bib { font: 12.5px/1.55 var(--mono); padding: 14px; white-space: pre; overflow-x: auto; margin-top: 10px; }
 </style>
 </head><body>
 
 <header class="wrap">
-  <div class="eyebrow">HotNets ’26 · Salt Lake City</div>
-  <h1 style="margin-top:12px">The Cloud Should Adapt to Its Applications, <span class="accent">Not the Other Way Around!</span></h1>
+  <h1>The Cloud Should Adapt to Its Applications, <span class="accent">Not the Other Way Around!</span></h1>
   <div class="authors"><a class="me" href="https://sachin.cs.illinois.edu"><b>Sachin Ashok</b></a><sup>†*</sup>, Karuna Grewal<sup>§*</sup>, Talha Waheed<sup>†</sup>, Gangmuk Lim<sup>†</sup>, Gerard Matthew<sup>†¶</sup>, Aditya S Prerepa<sup>†</sup>,<br class="wide"> P. Brighten Godfrey<sup>†</sup>, Justin Hsu<sup>§</sup>, Radhika Mittal<sup>†</sup></div>
-  <div class="aff"><sup>†</sup>University of Illinois Urbana-Champaign &nbsp; <sup>§</sup>Cornell University &nbsp; <sup>¶</sup>Amazon &nbsp; <sup>*</sup>Equal contribution</div>
+  <div class="aff"><sup>†</sup>University of Illinois Urbana-Champaign &nbsp; <sup>§</sup>Cornell University &nbsp; <sup>¶</sup>Amazon &nbsp; <sup>*</sup>Equal contribution &nbsp;&nbsp; HotNets ’26</div>
   <div class="row links">
     <a class="btn" href="https://doi.org/10.1145/3847290.3859957" target="_blank" rel="noopener">Paper</a>
     <a class="btn" href="#talks">2-minute video</a>
     <span class="credit" style="margin-left:8px">Website by <a href="https://sachin.cs.illinois.edu">Sachin Ashok</a></span>
   </div>
-  <p class="thesis">Cloud controllers manage applications better when they adapt to each application’s specifics. That needs <b>application insights</b>, such as call graphs and concurrency models. We propose an <b>Application Insight Plane (AIP)</b> that uses LLM agents to extract these insights once, keep them valid, and share them with every controller.</p>
+  <dl class="arg">
+    <dt>Status quo</dt><dd>Production controllers, such as autoscalers and load balancers, treat each application as an opaque box. They see only basic signals: request rate, latency and CPU. <a href="#inside">Section 1</a></dd>
+    <dt>Opportunity</dt><dd>Controllers could manage applications much better if they knew <b>application insights</b>, such as call graphs and concurrency models, and tuned their approach to each application.</dd>
+    <dt>Problem</dt><dd>Research prototypes use such insights, but each builds its own extractor. These extractors are tied to one system and break as the application changes, so few of these ideas reach production.</dd>
+    <dt>Why now</dt><dd>LLM agents can read code and telemetry, work across frameworks, and run existing tools.</dd>
+    <dt>Solution</dt><dd>An architectural change: an <b>Application Insight Plane (AIP)</b> between applications and controllers, where LLM agents
+      <ol type="a"><li>extract each insight once,</li><li>keep it valid as the application changes, and</li><li>share it with every controller.</li></ol>
+      <a href="#plane">Sections 2 to 4</a></dd>
+    <dt>Early results</dt><dd>With AIP’s concurrency insight, Envoy cuts p95 latency by up to 30%. The provider extracted concurrency models for all 100 services with source code, and abstained on the 16 without. <a href="#results">Section 5</a></dd>
+    <dt>Open questions</dt><dd>Which insights to standardize, how to keep them valid, and how to share them safely. <a href="#questions">Section 6</a></dd>
+  </dl>
+  <p class="try"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"/><path d="M13 10V9a2 2 0 0 1 4 0v2"/><path d="M17 11a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.4L4.3 14a2 2 0 0 1 3.4-2L9 14"/></svg><span>This page is interactive. Follow the orange instructions in each section.</span></p>
 </header>
 
 <main>
 <section id="inside"><div class="wrap">
-  <div class="sec-head"><div class="eyebrow">1 · What controllers cannot see</div>
-    <h2>Controllers see an opaque box. The code describes what is inside.</h2>
-    <p>Spring PetClinic, a microservice application used in the paper. Open the box, then pick which insight to show.</p></div>
-  <div class="row" role="group" aria-label="View">
-    <button class="btn" id="v-out" aria-pressed="true">As controllers see it</button>
-    <button class="btn" id="v-in" aria-pressed="false">X-ray view</button>
-  </div>
-  <div class="row" role="group" aria-label="Insight to show" id="ovs" style="margin-top:10px"></div>
-  <div class="panel xray scroll-x" style="margin-top:14px">
-    <div class="app-graph" id="graph">
-      <svg id="edges" viewBox="0 0 1060 380" preserveAspectRatio="none" aria-hidden="true"></svg>
-      <div class="lid" id="lid"><div><p style="font:700 22px var(--display)">The application, as controllers see it</p><p style="opacity:.8;margin-top:6px">request rate · latency · CPU</p></div></div>
+  <div class="sec-head"><h2>1. Production controllers typically operate assuming an opaque-box view</h2>
+    <p class="lead">However, a much richer, fine-grained application-level view is possible.</p></div>
+  <p class="try"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"/><path d="M13 10V9a2 2 0 0 1 4 0v2"/><path d="M17 11a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.4L4.3 14a2 2 0 0 1 3.4-2L9 14"/></svg><span>Switch to the application-level view, then pick an insight.</span></p>
+  <div class="row" role="group" aria-label="View" id="views"><button class="btn" data-v="0">Opaque-box view (production today)</button><button class="btn" data-v="1">Application-level view</button></div>
+  <div class="row sub" role="group" aria-label="Insight to show" id="ovs"><span class="lab">Insight:</span></div>
+  <div class="panel xray" style="margin-top:14px">
+    <div class="figwrap" id="figwrap"><div class="app-graph" id="graph">
+      <svg id="edges" viewBox="0 0 1060 480" aria-hidden="true"></svg>
+      <div class="legend" id="legend" hidden></div>
+      <div class="lid" id="lid"><div><p style="font:700 22px var(--display)">Application</p><p style="opacity:.8;margin-top:6px">an opaque box to its controllers</p></div></div>
+    </div></div>
+    <div class="sigs" aria-live="polite">
+      <div class="sig basic"><span class="tag">Basic signals</span><ul class="sl" id="basic"></ul></div>
+      <div class="sig adv" id="adv" hidden><span class="tag">Advanced signals <small>(which we call application insights)</small></span><ul class="sl" id="advt"></ul></div>
     </div>
   </div>
-  <div class="legend" id="legend" hidden></div>
-  <p class="xcap" id="xcap" aria-live="polite">Controllers only see request rates, latency and CPU. Open the x-ray view to see what the code and configuration say about the same application.</p>
 </div></section>
 
 <section id="plane"><div class="wrap">
-  <div class="sec-head"><div class="eyebrow">2 · The proposal</div>
-    <h2>An Application Insight Plane between applications and controllers</h2>
-    <p>Step through how one insight is extracted, published, queried and returned.</p></div>
-  <div class="panel plane scroll-x"><svg id="planesvg" viewBox="0 0 1060 400" role="img" aria-label="AIP architecture: the application feeds insight providers inside the plane, providers publish insights to a registry, controllers query the registry and get an insight back."></svg></div>
-  <div class="row steps" role="group" aria-label="Steps" id="psteps"></div>
-  <p class="stepcap" id="pcap" aria-live="polite"></p>
+  <div class="sec-head"><h2>2. An Application Insight Plane between applications and controllers</h2></div>
+  <p class="try"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"/><path d="M13 10V9a2 2 0 0 1 4 0v2"/><path d="M17 11a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.4L4.3 14a2 2 0 0 1 3.4-2L9 14"/></svg><span>Click through the four steps to follow one insight.</span></p>
+  <div class="row" role="group" aria-label="Steps" id="psteps"></div>
+  <ul class="stepcap" id="pcap" aria-live="polite"></ul>
+  <div class="panel plane"><svg id="planesvg" viewBox="0 0 1060 400" role="img" aria-label="AIP architecture: the application feeds insight providers inside the plane, providers publish insights to a registry, controllers query the registry and get an insight back."></svg></div>
 </div></section>
 
 <section id="uses"><div class="wrap">
-  <div class="sec-head"><div class="eyebrow">3 · Why share insights</div>
-    <h2>A few kinds of insights serve many kinds of controllers</h2>
-    <p>Each row is a kind of insight, and each column is a kind of controller. Pick a filled cell to see how that controller can use the insight.</p></div>
-  <div class="scroll-x"><table class="mx" id="mx"></table></div>
-  <div class="panel mdetail" aria-live="polite"><p class="q" id="mq"></p><p id="ma"></p><p class="note" id="mdef"></p></div>
+  <div class="sec-head"><h2>3. A few kinds of insights serve many kinds of controllers</h2></div>
+  <p class="try"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"/><path d="M13 10V9a2 2 0 0 1 4 0v2"/><path d="M17 11a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.4L4.3 14a2 2 0 0 1 3.4-2L9 14"/></svg><span>Click a “Use case” to see how a controller uses that insight. Dashed boxes mark pairs that do not apply.</span></p>
+  <div class="uses">
+    <div><table class="mx" id="mx"></table><div class="mxl" id="mxl"></div></div>
+    <div class="panel mdetail" aria-live="polite"><dl id="mdl"></dl></div>
+  </div>
 </div></section>
 
 <section id="playground"><div class="wrap">
-  <div class="sec-head"><div class="eyebrow">4 · Extraction, and keeping it valid</div>
-    <h2>Watch the provider extract a concurrency model, then change the code</h2>
-    <p class="hint">Press “Fetch insight”, then pick a change and fetch again. The provider re-extracts only when a change touches what the insight was built from.</p></div>
+  <div class="sec-head"><h2>4. Extracting an insight, and keeping it valid</h2>
+    <p>The provider extracts again only when a change touches what the insight was built from.</p></div>
+  <div class="try"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"/><path d="M13 10V9a2 2 0 0 1 4 0v2"/><path d="M17 11a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.4L4.3 14a2 2 0 0 1 3.4-2L9 14"/></svg><ul><li>Click “Fetch insight”.</li><li>Make a change, then click “Fetch insight” again.</li><li>Click a change again to undo it.</li></ul></div>
+  <div class="panel controls">
+    <div class="row"><button class="btn primary" id="fetch">Fetch insight</button><button class="btn" id="reset">Reset</button></div>
+    <div><p class="lab" style="margin-bottom:8px">Make a change</p><div class="changes" id="changes"></div></div>
+  </div>
   <div class="play">
     <div class="panel code">
       <div class="tabs" role="tablist" id="tabs"></div>
@@ -222,57 +304,55 @@ footer { padding-block: 40px 64px; border-top: 1px solid var(--line); }
     </div>
     <div class="panel prov">
       <div class="head"><h3>Concurrency model provider</h3><span class="status" id="pstat">no insight yet</span></div>
-      <div class="row"><button class="btn primary" id="fetch">Fetch insight</button><button class="btn" id="reset">Reset</button></div>
       <ol class="log" id="log"></ol>
-      <div class="icard" id="icard" hidden><div class="hd">concurrency_model · Svc(petclinic, visits-service)</div><div class="bd" id="ibody"></div></div>
-      <div class="limit" id="limit" hidden><span class="v" id="lv">9</span><span><b>Envoy’s limit</b><br><span class="why" id="lwhy"></span></span></div>
+      <div class="icard" id="icard" hidden><div class="hd">concurrency_model, Svc(petclinic, visits-service)</div><div class="bd" id="ibody"></div></div>
+      <div class="bn" id="bn" hidden></div>
+      <dl class="verdict" id="limit" hidden></dl>
     </div>
   </div>
-  <div style="margin-top:16px"><div class="eyebrow" style="margin-bottom:8px">Make a change</div><div class="changes" id="changes"></div></div>
-  <p class="note" style="margin-top:12px">The provider’s output on this page is precomputed.</p>
+  <p style="margin-top:12px;font-size:16px;color:var(--muted)">Please note: the provider’s output on this page is precomputed.</p>
 </div></section>
 
 <section id="results"><div class="wrap">
-  <div class="sec-head"><div class="eyebrow">5 · Preliminary evaluation</div>
-    <h2>Generality and utility</h2></div>
+  <div class="sec-head"><h2>5. Preliminary evaluation</h2></div>
   <div class="res">
-    <div class="panel"><h3>Generality</h3>
-      <ul><li>Ran the LLM-based provider on 8 applications from 7 benchmark suites.</li>
-        <li>100 services with source code: extracted each concurrency model, in one common schema.</li>
-        <li>16 SockShop services with only deployment files: abstained rather than guess.</li></ul>
-      <p class="note">Concurrency mechanisms it recognized</p>
-      <div class="chips"><span>Tomcat thread pool</span><span>Gunicorn process pool</span><span>uWSGI</span><span>ThreadPoolExecutor</span><span>goroutine per RPC</span><span>Node.js event loop</span><span>Thrift thread per connection</span><span>ASP.NET Core</span><span>RabbitMQ consumers</span></div>
-    </div>
     <div class="panel chart"><h3>Utility</h3>
-      <p>Envoy with the concurrency insight keeps p95 latency lower under overload, with at most 0.4% lower goodput.</p>
-      <div class="row" role="group" aria-label="Configuration" id="cfg"></div>
-      <svg id="p95" viewBox="0 0 620 330" role="img" aria-label="p95 latency against offered load for default Envoy and Envoy with the insight"></svg>
-      <p class="note" id="cfgnote"></p>
+      <ul><li>Up to 30% lower p95 latency under overload.</li><li>Goodput at most 0.4% lower.</li></ul>
+      <p class="try"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V5a2 2 0 0 1 4 0v5"/><path d="M13 10V9a2 2 0 0 1 4 0v2"/><path d="M17 11a2 2 0 0 1 4 0v3a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.4L4.3 14a2 2 0 0 1 3.4-2L9 14"/></svg><span>Switch the setup to see which pool sets the limit.</span></p>
+      <div class="row" role="group" aria-label="Setup" id="cfg"></div>
+      <svg id="p95" viewBox="0 0 620 350" role="img" aria-label="p95 latency against offered load for default Envoy and Envoy with the insight"></svg>
+      <dl class="verdict" id="cfgnote"></dl>
     </div>
+    <div class="panel"><h3>Generality</h3>
+      <ul><li>8 microservice applications from 7 benchmark suites, 116 services in total.</li>
+        <li>100 services had source code. The provider extracted a concurrency model for each one.</li>
+        <li>16 services had only deployment files. The provider abstained instead of guessing.</li></ul>
+      <dl class="verdict"><dt>LLM:</dt><dd>GPT-5.5 via OpenAI Codex, the same setup for every application</dd><dt>Schema:</dt><dd>one for every service, <code>ConcurrencyModel.v1</code></dd><dt>Audit:</dt><dd>a second agent checks each result against the code and configuration lines it cites</dd></dl>
+      <p class="lab">Concurrency mechanisms found: 11 kinds across 105 components</p>
+      <div class="mech"><div class="mrow"><span>Servlet thread pool (Tomcat)</span><div class="bar"><i style="width:100.0%"></i></div><b>53</b></div><div class="mrow"><span>Goroutine per RPC (Go gRPC)</span><div class="bar"><i style="width:22.6%"></i></div><b>12</b></div><div class="mrow"><span>Thread per connection (C++ Thrift)</span><div class="bar"><i style="width:20.8%"></i></div><b>11</b></div><div class="mrow"><span>Event loop (Node.js, Netty)</span><div class="bar"><i style="width:20.8%"></i></div><b>11</b></div><div class="mrow"><span>Thread pool (Python gRPC, Java executors)</span><div class="bar"><i style="width:9.4%"></i></div><b>5</b></div><div class="mrow"><span>Queue worker (RabbitMQ consumers)</span><div class="bar"><i style="width:7.5%"></i></div><b>4</b></div><div class="mrow"><span>Goroutine per request (Go HTTP)</span><div class="bar"><i style="width:5.7%"></i></div><b>3</b></div><div class="mrow"><span>Runtime-managed pool (Java gRPC, ASP.NET Core)</span><div class="bar"><i style="width:3.8%"></i></div><b>2</b></div><div class="mrow"><span>Process pool (Gunicorn, uWSGI)</span><div class="bar"><i style="width:3.8%"></i></div><b>2</b></div><div class="mrow"><span>Async runtime (Go)</span><div class="bar"><i style="width:1.9%"></i></div><b>1</b></div><div class="mrow"><span>PHP worker pool (Apache)</span><div class="bar"><i style="width:1.9%"></i></div><b>1</b></div></div>
+    </div>
+  </div>
+</div></section>
+
+
+<section id="questions"><div class="wrap">
+  <div class="sec-head"><h2>6. Open questions</h2></div>
+  <div class="qs">
+    <div class="panel"><h3>Which insights to standardize?</h3><p>The few kinds many controllers need, each with one schema.</p></div>
+    <div class="panel"><h3>How to keep them valid?</h3><p>Record what each insight was derived from, and check it again when that changes.</p></div>
+    <div class="panel"><h3>How to share them safely?</h3><p>Give each controller only what it needs, such as a thread limit rather than the code.</p></div>
   </div>
 </div></section>
 
 <section id="talks"><div class="wrap">
-  <div class="sec-head"><div class="eyebrow">6 · Video</div><h2>The paper in two minutes</h2></div>
-  <div class="talks">
-    <div class="panel"><video id="v2" controls preload="metadata" src="AIP_2min.mp4"></video></div>
-  </div>
-</div></section>
-
-<section id="questions"><div class="wrap">
-  <div class="sec-head"><div class="eyebrow">7 · Open questions</div><h2>What we would like to discuss</h2></div>
-  <div class="qs">
-    <details class="panel" open><summary>Which insights to standardize?</summary><p>The few kinds many controllers need, each with one schema, so a provider and a controller built by different teams still fit together.</p></details>
-    <details class="panel" open><summary>How to keep them valid?</summary><p>An insight records the code, configuration and workload it was derived from. When any of those change, the insight has to be checked again, and a controller should fall back to its default when it is stale or uncertain.</p></details>
-    <details class="panel" open><summary>How to share them safely?</summary><p>Give each controller only what it needs. An overload controller needs a thread pool limit, not the source code behind it, and the provider must resist instructions planted in code or logs.</p></details>
-  </div>
+  <div class="sec-head"><h2>7. The paper in two minutes</h2></div>
+  <div class="talks"><div class="panel"><video id="v2" controls preload="metadata" src="AIP_2min.mp4"></video></div></div>
 </div></section>
 </main>
 
 <footer class="wrap">
-  <p class="credit" style="margin:0 0 22px">Website by <a href="https://sachin.cs.illinois.edu">Sachin Ashok</a></p>
-  <div class="eyebrow">Cite</div>
-  <div class="row" style="margin-top:8px"><button class="btn" id="copybib">Copy BibTeX</button><span class="note" id="copymsg" aria-live="polite"></span></div>
+  <h3>Cite</h3>
+  <div class="row" style="margin-top:10px"><button class="btn" id="copybib">Copy BibTeX</button><span class="note" id="copymsg" aria-live="polite"></span></div>
   <pre class="panel bib" id="bib">@inproceedings{ashok2026cloud,
   title     = {The Cloud Should Adapt to Its Applications, Not the Other Way Around!},
   author    = {Ashok, Sachin and Grewal, Karuna and Waheed, Talha and Lim, Gangmuk and Matthew, Gerard
@@ -281,87 +361,181 @@ footer { padding-block: 40px 64px; border-top: 1px solid var(--line); }
   year      = {2026},
   doi       = {10.1145/3847290.3859957}
 }</pre>
+  <p class="credit" style="margin-top:22px">© 2026 Sachin Ashok</p>
 </footer>
 
 <script>
+document.documentElement.setAttribute('data-theme', 'light');
 const $ = id => document.getElementById(id);
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 
+const POS = { wide: { gw: [140, 186], cu: [370, 44], vi: [370, 168], ve: [370, 304], db: [600, 186] },
+  phone: { gw: [95, 70], cu: [95, 172], vi: [95, 276], ve: [95, 410], db: [95, 510] } };
+const LAY = { wide: { W: 1060, H: 520, box: [120, 10, 670, 404] }, phone: { W: 360, H: 690, box: [10, 34, 340, 570] } };
+let lay = 'wide';
 const NODES = {
-  gw: { x: 40, y: 150, n: 'API gateway', cg: '→ calls customers, visits and vets', cm: 'event loop (Netty)', rp: 'light CPU per request' },
-  cu: { x: 420, y: 20, n: 'customers-service', cg: '→ calls MySQL', cm: 'Tomcat thread pool', rp: 'moderate CPU, small DB reads' },
-  vi: { x: 420, y: 150, n: 'visits-service', cg: '→ calls MySQL', cm: 'Tomcat: 8 threads, 32 DB connections, blocks on each JDBC call', rp: 'most time spent holding a DB connection' },
-  ve: { x: 420, y: 280, n: 'vets-service', cg: '→ calls MySQL', cm: 'Tomcat thread pool', rp: 'light, cacheable reads' },
-  db: { x: 800, y: 150, n: 'MySQL', cg: 'called by all three services', cm: 'connection pools from each service', rp: 'disk and lock contention under load' } };
+  gw: { x: 140, y: 170, n: 'API gateway', cg: '→ calls customers, visits and vets', if: 'passes owner and pet ids on', cm: 'event loop (Netty)', rp: 'light CPU per request', pm: 'latency flat until CPU saturates', ob: 'class A: p95 under 100 ms' },
+  cu: { x: 370, y: 28, n: 'customers-service', cg: '→ calls MySQL', if: 'returns owners and their pets', cm: 'Tomcat thread pool', rp: 'moderate CPU, small DB reads', pm: 'latency grows with CPU use', ob: 'serves class A' },
+  vi: { x: 370, y: 150, n: 'visits-service', cg: '→ calls MySQL', if: 'returns visit records for a pet', cm: 'Tomcat: 8 threads, 32 DB connections, blocks on each JDBC call', rp: 'most time spent holding a DB connection', pm: 'latency jumps past 9 requests in flight', ob: 'class B: reports within 2 s' },
+  ve: { x: 370, y: 302, n: 'vets-service', cg: '→ calls MySQL', if: 'returns vets and specialties', cm: 'Tomcat thread pool', rp: 'light, cacheable reads', pm: 'fast, mostly cached reads', ob: 'serves class A' },
+  db: { x: 600, y: 170, n: 'MySQL', cg: 'called by all three services', if: 'stores owners, pets, visits, vets', cm: 'connection pools from each service', rp: 'disk and lock contention under load', pm: 'latency grows with lock contention', ob: 'shared by all classes' } };
 const EDGES = [['gw', 'cu'], ['gw', 'vi'], ['gw', 've'], ['cu', 'db'], ['vi', 'db'], ['ve', 'db']];
 const CLASSES = [
-  { id: 'c1', name: 'Owner lookup', path: ['gw', 'cu', 'db'], note: 'reads one owner and their pets' },
-  { id: 'c2', name: 'Visit history', path: ['gw', 'vi', 'db'], note: 'reads many rows and holds a database connection for most of the request' },
-  { id: 'c3', name: 'New visit', path: ['gw', 'vi', 'db'], note: 'one small write, done quickly' },
-  { id: 'c4', name: 'Vet list', path: ['gw', 've', 'db'], note: 'small reads that can be cached' }];
-const OVS = [['cg', 'Call graph'], ['cm', 'Concurrency model'], ['rp', 'Resource profile'], ['rc', 'Request classes']];
-let open = false, ov = 'cg', raf = 0;
+  { id: 'c1', name: 'Class A', kind: 'latency-sensitive, high priority', note: 'owner and vet lookups', paths: [['gw', 'cu', 'db'], ['gw', 've', 'db']] },
+  { id: 'c2', name: 'Class B', kind: 'throughput-intensive', note: 'visit history reports, which hold a database connection for most of the request', paths: [['gw', 'vi', 'db']] },
+  { id: 'c3', name: 'Class C', kind: 'small writes, low priority', note: 'new visits, done quickly', paths: [['gw', 'vi', 'db']] }];
+const OVS = [['cg', 'Call graph'], ['if', 'Information flow'], ['cm', 'Concurrency model'], ['rc', 'Request classes'], ['rp', 'Resource profile'], ['pm', 'Performance model']];
+const chips = a => a.map(x => `<code>${x}</code>`).join('');
+const IO = { gw: [['ownerId'], ['owner', 'pets', 'visits']], cu: [['ownerId'], ['name', 'address', 'pets[]']], vi: [['petId[]'], ['date', 'description']], ve: [[], ['name', 'specialties']], db: [['owner_id', 'pet_id'], ['rows']] };
+const slots = (n, shown, small) => `<span class="slots${small ? ' sm' : ''}">${'<i></i>'.repeat(shown)}${shown < n ? '<em>…</em>' : ''}</span>`;
+const CMV = { gw: '<span class="loop">⟳</span><b>1 event loop</b>', cu: slots(200, 8) + '<b>200 threads</b>', vi: slots(8, 8) + '<b>8 threads</b>' + slots(32, 32, 1) + '<b>32 DB connections</b>',
+  ve: slots(200, 8) + '<b>200 threads</b>', db: slots(151, 10, 1) + '<b>151 connections</b>' };
+const RP = { gw: [70, 0, 30, 3], cu: [40, 50, 10, 9], vi: [9, 91, 0, 40], ve: [30, 20, 50, 4], db: [35, 65, 0, 6] };
+const rpv = id => { const [c, w, o, ms] = RP[id]; return `<span class="stack"><i style="width:${c}%;background:var(--ins)"></i><i style="width:${w}%;background:color-mix(in srgb, var(--ins) 35%, var(--surface))"></i><i style="width:${o}%;background:var(--line)"></i></span><b>${ms} ms per request</b>`; };
+const PM = { gw: [.1, .12, .14, .16, .2, .26], cu: [.15, .2, .26, .34, .44, .56], vi: [.15, .16, .18, .2, .8, .95], ve: [.08, .08, .09, .1, .11, .13], db: [.2, .26, .34, .44, .56, .7] };
+const pmv = id => { const y = PM[id], pts = y.map((v, i) => `${4 + i * 27},${30 - v * 26}`).join(' ');
+  return `<svg class="spark" viewBox="0 0 146 34" aria-hidden="true"><line x1="4" y1="31" x2="142" y2="31" stroke="var(--line)" stroke-width="1.5"/><line x1="4" y1="31" x2="4" y2="2" stroke="var(--line)" stroke-width="1.5"/>${id === 'vi' ? '<line x1="112" y1="3" x2="112" y2="31" stroke="var(--ins)" stroke-dasharray="3 3" stroke-width="1"/><text x="116" y="12" font-size="10" fill="var(--ins-ink)">9</text>' : ''}<polyline points="${pts}" fill="none" stroke="var(--ins)" stroke-width="2.2"/></svg>`; };
+const VIS = { cg: id => NODES[id].cg, if: id => `<span class="io"><span>in</span>${IO[id][0].length ? chips(IO[id][0]) : '<em>none</em>'}</span><span class="io"><span>out</span>${chips(IO[id][1])}</span>`,
+  cm: id => CMV[id], rp: rpv, pm: pmv };
+const CAP = { cg: 'the gateway calls three services, and each calls MySQL',
+  if: 'an ownerId goes in, and the owner, pets and visits come back',
+  cm: 'visits-service runs at most 8 requests at once, each holding a DB connection',
+  rc: 'class A is latency-sensitive, class B is throughput-intensive, class C is small writes',
+  rp: 'visits-service spends 91% of each request waiting on the database',
+  pm: 'visits-service p95 latency rises sharply past 9 requests in flight' };
+const HOSTS = [[150, 63], [365, 48], [580, 71]], HOSTX = { wide: [150, 365, 580], phone: [10, 127, 244] };
+let open = false, ov = 'cg', raf = 0, lastSig = 0;
 const graph = $('graph');
 Object.entries(NODES).forEach(([id, d]) => { const el = document.createElement('div'); el.className = 'svc'; el.id = 'n-' + id; el.style.left = d.x + 'px'; el.style.top = d.y + 'px';
-  el.innerHTML = `<span class="n">${d.n}</span><span class="ov ov-cg" data-k="cg">${d.cg}</span><span class="ov ov-cm" data-k="cm">${d.cm}</span><span class="ov ov-rp" data-k="rp">${d.rp}</span>`; graph.appendChild(el); });
-OVS.forEach(([k, lab]) => { const b = document.createElement('button'); b.className = 'btn'; b.textContent = lab; b.dataset.k = k; b.setAttribute('aria-pressed', k === ov); b.onclick = () => { ov = k; renderX(); }; $('ovs').appendChild(b); });
-function center(id) { const d = NODES[id]; return [d.x + 105, d.y + 34]; }
-const outP = id => [NODES[id].x + 210, NODES[id].y + 30], inP = id => [NODES[id].x - 4, NODES[id].y + 30];
-function drawEdges(t) {
-  const sv = $('edges'); let h = '';
-  const ec = ov === 'cg' ? css('--ins') : css('--muted');
-  h += `<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="${ov === 'cg' ? 6 : 7}" markerHeight="${ov === 'cg' ? 6 : 7}" orient="auto"><path d="M0 0L10 5L0 10z" fill="${ec}"/></marker></defs>`;
-  EDGES.forEach(([a, b]) => { const [x1, y1] = outP(a), [x2, y2] = inP(b), mx = (x1 + x2) / 2; h += `<path d="M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}" fill="none" stroke="${ec}" stroke-width="${ov === 'cg' ? 3 : 2}" opacity="${ov === 'cg' ? 1 : .6}" marker-end="url(#ah)"/>`; });
-  if (ov === 'rc') CLASSES.forEach((c, ci) => { const pts = c.path.flatMap((id, q) => q === 0 ? [outP(id)] : q === c.path.length - 1 ? [inP(id)] : [inP(id), outP(id)]); for (let k = 0; k < 3; k++) { const f = ((t / 2600) + k / 3 + ci * .11) % 1, seg = f * (pts.length - 1), i = Math.floor(seg), u = seg - i;
-      const p = [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * u, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * u + [0, -5, 5, 0][ci]]; h += `<circle cx="${p[0]}" cy="${p[1]}" r="7" fill="${css('--' + c.id)}"/>`; } });
-  sv.innerHTML = h;
+  el.innerHTML = `<span class="n">${d.n}</span>` + ['cg', 'if', 'cm', 'rp', 'pm'].map(k => `<span class="ov" data-k="${k}">${VIS[k](id)}</span>`).join(''); graph.appendChild(el); });
+OVS.forEach(([k, lab]) => { const b = document.createElement('button'); b.className = 'btn'; b.textContent = lab; b.dataset.k = k; b.onclick = () => { ov = k; renderX(); }; $('ovs').appendChild(b); });
+document.querySelectorAll('#views .btn').forEach(b => b.onclick = () => { open = b.dataset.v === '1'; renderX(); });
+const outP = id => lay === 'phone' && id === 'gw' ? [NODES[id].x, NODES[id].y + 26] : [NODES[id].x + 170, NODES[id].y + 26];
+const inP = id => lay === 'phone' ? (id === 'db' ? [NODES[id].x + 174, NODES[id].y + 26] : [NODES[id].x - 4, NODES[id].y + 26]) : [NODES[id].x - 4, NODES[id].y + 26];
+function place() {
+  Object.entries(POS[lay]).forEach(([id, [x, y]]) => { NODES[id].x = x; NODES[id].y = y; const el = $('n-' + id); el.style.left = x + 'px'; el.style.top = y + 'px'; });
+  const L = LAY[lay], [bx, by, bw, bh] = L.box, lid = $('lid');
+  graph.style.width = L.W + 'px'; graph.style.height = L.H + 'px'; $('edges').setAttribute('viewBox', `0 0 ${L.W} ${L.H}`);
+  Object.assign(lid.style, { left: bx + 'px', top: by + 'px', width: bw + 'px', height: bh + 'px' });
 }
-function loop(t) { drawEdges(t); if (ov === 'rc' && open) raf = requestAnimationFrame(loop); }
+const cpu = (k, t) => Math.round(HOSTS[k][1] + 9 * Math.sin(t / 900 + k * 2.1));
+function drawFig(t) {
+  const M = css('--muted'), A = css('--app'), L = css('--line'), G = css('--gold'), GB = css('--gold-bg'), S = css('--surface');
+  const ec = open && ov === 'cg' ? css('--ins') : M;
+  let h = `<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="${ec}"/></marker><marker id="al" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="${M}"/></marker></defs>`;
+  const P = lay === 'phone', [bx, by, bw, bh] = LAY[lay].box, hy = by + bh + 34, hw = P ? 106 : 200;
+  h += `<rect x="${bx}" y="${by}" width="${bw}" height="${bh}" rx="16" fill="none" stroke="${A}" stroke-width="2"/><text x="${bx + bw / 2}" y="${by + 24}" font-size="13" font-weight="700" fill="${A}" text-anchor="middle">Application</text>`;
+  if (P) {
+    h += `<text x="150" y="14" font-size="12" fill="${M}" text-anchor="end">requests</text><line x1="160" y1="2" x2="160" y2="30" stroke="${M}" stroke-width="2" marker-end="url(#al)"/>`;
+    h += `<line x1="200" y1="30" x2="200" y2="2" stroke="${M}" stroke-width="2" marker-end="url(#al)"/><text x="210" y="14" font-size="12" fill="${M}">responses</text>`;
+    for (let k = 0; k < 2; k++) { const f = (t / 1400 + k / 2) % 1; h += `<circle cx="160" cy="${2 + f * 26}" r="4" fill="${A}"/><circle cx="200" cy="${28 - f * 26}" r="4" fill="${A}"/>`; }
+  } else {
+    h += `<text x="12" y="192" font-size="12" fill="${M}">requests</text><line x1="12" y1="202" x2="116" y2="202" stroke="${M}" stroke-width="2" marker-end="url(#al)"/>`;
+    h += `<line x1="116" y1="230" x2="12" y2="230" stroke="${M}" stroke-width="2" marker-end="url(#al)"/><text x="12" y="250" font-size="12" fill="${M}">responses</text>`;
+    for (let k = 0; k < 3; k++) { const f = (t / 1400 + k / 3) % 1; h += `<circle cx="${12 + f * 100}" cy="202" r="4.5" fill="${A}"/><circle cx="${112 - f * 100}" cy="230" r="4.5" fill="${A}"/>`; }
+  }
+  if (open) EDGES.forEach(([a, b]) => { const [x1, y1] = outP(a), [x2, y2] = inP(b);
+    const d = !P ? `M${x1} ${y1} C ${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}` : a === 'gw' ? `M${x1} ${y1} C ${x1 - 60} ${y1}, ${x2 - 60} ${y2}, ${x2} ${y2}` : `M${x1} ${y1} C ${x1 + 60} ${y1}, ${x2 + 60} ${y2}, ${x2} ${y2}`;
+    h += `<path d="${d}" fill="none" stroke="${ec}" stroke-width="${ov === 'cg' ? 3 : 2}" opacity="${ov === 'cg' ? 1 : .6}" marker-end="url(#ah)"/>`; });
+  if (open && ov === 'rc') CLASSES.forEach((c, ci) => c.paths.forEach(path => { const pts = path.flatMap((id, q) => q === 0 ? [outP(id)] : q === path.length - 1 ? [inP(id)] : [inP(id), outP(id)]); for (let k = 0; k < 3; k++) { const f = ((t / 2600) + k / 3 + ci * .11) % 1, seg = f * (pts.length - 1), i = Math.floor(seg), u = seg - i;
+    const q = [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * u, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * u + [0, -5, 5][ci]]; h += `<circle cx="${q[0]}" cy="${q[1]}" r="7" fill="${css('--' + c.id)}"/>`; } }));
+  h += `<text x="${bx}" y="${hy - 6}" font-size="12" fill="${M}">runs on</text>`;
+  HOSTX[lay].forEach((x, k) => { const c = cpu(k, t); h += `<line x1="${x + hw / 2}" y1="${by + bh}" x2="${x + hw / 2}" y2="${hy}" stroke="${L}" stroke-width="2" stroke-dasharray="4 4"/><rect x="${x}" y="${hy}" width="${hw}" height="62" rx="10" fill="${S}" stroke="${L}" stroke-width="2"/>`
+    + `<text x="${x + 10}" y="${hy + 22}" font-size="13" font-weight="700" fill="${A}">host-${k + 1}</text><text x="${x + hw - 10}" y="${hy + 22}" font-size="13" text-anchor="end" fill="${G}">${P ? '' : 'CPU '}${c}%</text>`
+    + `<rect x="${x + 10}" y="${hy + 34}" width="${hw - 20}" height="14" rx="7" fill="${GB}"/><rect x="${x + 10}" y="${hy + 34}" width="${((hw - 20) * c / 100).toFixed(1)}" height="14" rx="7" fill="${G}"/>`; });
+  $('edges').innerHTML = h;
+  if (t - lastSig > 600 || !lastSig) { lastSig = t; const avg = Math.round(HOSTS.reduce((a, _, k) => a + cpu(k, t), 0) / 3);
+    $('basic').innerHTML = `<li>Request rate: ${118 + Math.round(6 * Math.sin(t / 1300))}/s</li><li>p95 latency: ${74 + Math.round(3 * Math.sin(t / 1700 + 1))} ms</li><li>CPU: ${avg}%</li><li class="more">…</li>`; }
+}
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let visible = false;
+function loop(t) { drawFig(t); if (visible && !still) raf = requestAnimationFrame(loop); }
+new IntersectionObserver(es => { visible = es[0].isIntersecting; cancelAnimationFrame(raf); if (visible && !still) raf = requestAnimationFrame(loop); }).observe(graph);
 function renderX() {
-  $('v-out').setAttribute('aria-pressed', !open); $('v-in').setAttribute('aria-pressed', open); $('lid').classList.toggle('off', open);
-  document.querySelectorAll('#ovs .btn').forEach(b => { b.setAttribute('aria-pressed', b.dataset.k === ov); b.disabled = !open; });
+  document.querySelectorAll('#views .btn').forEach(b => b.setAttribute('aria-pressed', (b.dataset.v === '1') === open));
+  $('ovs').classList.toggle('off', !open); $('lid').classList.toggle('off', open);
+  document.querySelectorAll('#ovs .btn').forEach(b => { b.setAttribute('aria-pressed', open && b.dataset.k === ov); b.disabled = !open; });
   document.querySelectorAll('.ov').forEach(e => e.classList.toggle('on', open && e.dataset.k === ov));
-  const lg = $('legend'); lg.hidden = !(open && ov === 'rc');
-  lg.innerHTML = CLASSES.map(c => `<span style="--dot:var(--${c.id})"><b>${c.name}</b> · ${c.note}</span>`).join('');
-  const cap = { cg: 'Call graph: which services a request calls, and in what order. The gateway fans out to three services, and each calls MySQL.',
-    cm: 'Concurrency model: how many requests each service can work on at once. visits-service runs 8 Tomcat threads, and each blocks on a database call.',
-    rp: 'Resource profile: what each service spends per request, such as CPU, memory and database time.',
-    rc: 'Request classes: subsets of requests that cost different amounts, even when they reach the same service. Visit history and new visits both go to visits-service, but visit history holds a database connection far longer. A controller can treat the two classes differently, for example by prioritizing one.' };
-  $('xcap').textContent = open ? cap[ov] : 'Controllers only see request rates, latency and CPU. Open the x-ray view to see what the code and configuration say about the same application.';
-  cancelAnimationFrame(raf); if (open && ov === 'rc' && !matchMedia('(prefers-reduced-motion: reduce)').matches) raf = requestAnimationFrame(loop); else drawEdges(800);
+  $('adv').hidden = !open; $('advt').innerHTML = OVS.map(([k, lab]) => `<li class="${k === ov ? 'on' : ''}"><b>${lab}:</b> ${CAP[k]}</li>`).join('') + '<li class="more">…</li>';
+  const lg = $('legend'); lg.hidden = !(open && ['rc', 'rp', 'pm', 'cm', 'if'].includes(ov));
+  const sw = c => `<span style="--dot:${c}">`;
+  if (ov === 'rp') lg.innerHTML = sw('var(--ins)') + '<b>CPU</b></span>' + sw('color-mix(in srgb, var(--ins) 35%, var(--surface))') + '<b>Waiting on the database or disk</b></span>' + sw('var(--line)') + '<b>Other</b></span>';
+  else if (ov === 'pm') lg.innerHTML = '<span class="plain"><b>Each curve:</b> p95 latency (up) as requests in flight grow (right). The dashed line marks where visits-service saturates.</span>';
+  else if (ov === 'cm') lg.innerHTML = '<span class="plain"><b>Each square:</b> one worker thread or connection. Squares with … are cut short.</span>';
+  else if (ov === 'if') lg.innerHTML = '<span class="plain"><b>in:</b> parameters a service receives<br><b>out:</b> fields it returns</span>';
+  else lg.innerHTML = CLASSES.map(c => `<span style="--dot:var(--${c.id})"><b style="color:var(--${c.id})">${c.name}</b>, ${c.kind}<br><span class="nt">${c.note}</span></span>`).join('');
+  lastSig = 0; drawFig(performance.now());
 }
-$('v-out').onclick = () => { open = false; renderX(); }; $('v-in').onclick = () => { open = true; renderX(); };
 renderX();
+function fitFig() {
+  const w = $('figwrap').clientWidth, nl = w < 700 ? 'phone' : 'wide';
+  if (nl !== lay) { lay = nl; place(); lastSig = 0; drawFig(performance.now()); }
+  const L = LAY[lay], k = Math.min(1, w / L.W), narrow = lay === 'phone' || k < .75, lg = $('legend');
+  graph.style.transform = k < 1 ? `scale(${k})` : '';
+  $('inside').classList.toggle('narrow', narrow);
+  if (narrow && lg.parentElement === graph) $('figwrap').after(lg); else if (!narrow && lg.parentElement !== graph) graph.appendChild(lg);
+  $('figwrap').style.height = L.H * k + 'px';
+}
+place();
+addEventListener('resize', fitFig); fitFig();
 
 const PSTEPS = [
-  ['Extract', 'Insight providers use LLM agents to read the code, configuration and telemetry, and run existing tools such as profilers. Here, the concurrency model provider works out how many requests visits-service can handle at once.'],
-  ['Publish', 'The provider publishes the insight to a shared registry, along with where it applies, what it was derived from, and how confident it is.'],
-  ['Query', 'A controller, here an overload controller, asks the registry for the concurrency model of visits-service.'],
-  ['Use', 'The insight comes back to the controller, which decides how to act on it. Other controllers can query the same insight later.']];
+  ['Extract', ['Insight providers use LLM agents to read the code, configuration and telemetry.', 'The agents run existing tools, such as static analyzers and profilers.', 'Here, the concurrency model provider finds how many requests visits-service can handle at once.']],
+  ['Publish', ['The provider publishes the insight to a shared registry.', 'It adds where the insight applies, what it was derived from, and how confident it is.']],
+  ['Query', ['A controller asks the registry for an insight, by kind and scope.', 'Here, the overload controller asks for the concurrency model of visits-service.']],
+  ['Use', ['The insight goes back to the controller, which decides how to act on it.', 'Other controllers can query the same insight later.']]];
 let pstep = 0;
 function planeSVG() {
   const L = css('--line'), E = css('--ext-line'), EB = css('--ext-bg'), EX = css('--ext'), R = css('--ins'), RB = css('--ins-bg'), RI = css('--ins-ink'), B = css('--ctl-line'), BB = css('--ctl-bg'), BI = css('--ctl'), A = css('--app'), AB = css('--app-bg'), S = css('--surface'), M = css('--muted');
   const on = k => pstep >= k ? 1 : .25, act = k => pstep === k;
-  const box = (x, y, w, h, fill, stroke, txt, col, sub, k) => `<g opacity="${on(k)}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="${fill}" stroke="${stroke}" stroke-width="${act(k) ? 3.5 : 2}"/><text x="${x + 14}" y="${y + 28}" font-size="17" font-weight="700" fill="${col}">${txt}</text>${sub ? `<text x="${x + 14}" y="${y + 50}" font-size="13" fill="${M}">${sub}</text>` : ''}</g>`;
+  const box = (x, y, w, h, fill, stroke, txt, col, sub, k) => `<g opacity="${on(k)}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="${fill}" stroke="${stroke}" stroke-width="${act(k) ? 3.5 : 2}"/><text x="${x + 14}" y="${y + (sub ? 28 : h / 2 + 6)}" font-size="16" font-weight="700" fill="${col}">${txt}</text>${sub ? `<text x="${x + 14}" y="${y + 50}" font-size="13" fill="${M}">${sub}</text>` : ''}</g>`;
   const arr = (x1, y1, x2, y2, col, k, lab, lx, ly) => `<g opacity="${on(k)}"><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${act(k) ? 4 : 2.5}" marker-end="url(#m${col.replace('#', '')})"/>${lab ? `<text x="${lx}" y="${ly}" font-size="13" font-weight="600" fill="${col}" text-anchor="middle">${lab}</text>` : ''}</g>`;
   const mk = c => `<marker id="m${c.replace('#', '')}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${c}"/></marker>`;
   let h = `<defs>${mk(E)}${mk(B)}${mk(R)}</defs>`;
-  h += `<rect x="190" y="20" width="530" height="360" rx="18" fill="${EB}" stroke="${E}" stroke-dasharray="8 6" stroke-width="2" opacity=".75"/><text x="208" y="46" font-size="16" font-weight="700" fill="${EX}">Application Insight Plane (AIP)</text>`;
-  h += box(8, 110, 140, 140, AB, A, 'Application', A, 'code, configs,', 0) + `<text x="22" y="180" font-size="13" fill="${M}" opacity="${on(0)}">telemetry</text>`;
-  h += box(210, 70, 200, 60, S, E, 'Call graph provider', EX, '', 0) + box(210, 150, 200, 60, S, E, 'Concurrency model', EX, 'provider · LLM agent + tools', 0) + box(210, 230, 200, 60, S, E, 'Performance model', EX, 'provider', 0);
-  h += box(500, 90, 200, 210, S, R, 'Insight registry', RI, 'Insights by kind and scope', 1);
-  ['call_graph', 'concurrency_model', 'performance_model'].forEach((k, i) => h += `<g opacity="${on(1)}"><rect x="514" y="${160 + i * 36}" width="172" height="28" rx="6" fill="${k === 'concurrency_model' && pstep >= 1 ? RB : S}" stroke="${R}" stroke-width="1.2"/><text x="524" y="${179 + i * 36}" font-size="12.5" font-family="IBM Plex Mono, monospace" fill="${RI}">${k}</text></g>`);
-  h += box(858, 60, 190, 60, S, B, 'Overload controller', BI, '', 2) + box(858, 130, 190, 48, S, B, 'Autoscaler', BI, '', 2) + box(858, 192, 190, 48, S, B, 'Load balancer', BI, '', 2) + box(858, 254, 190, 48, S, B, 'Tracer', BI, '', 2);
-  h += arr(148, 180, 205, 180, E, 0) + arr(410, 180, 495, 180, E, 1, 'publish', 452, 160);
-  h += `<g opacity="${on(2)}"><polyline points="910,60 910,38 600,38 600,84" fill="none" stroke="${B}" stroke-width="${act(2) ? 4 : 2.5}" marker-end="url(#m${B.replace('#', '')})"/><text x="812" y="30" font-size="13" font-weight="600" fill="${B}" text-anchor="middle">query (kind, scope)</text></g>`;
-  h += arr(700, 104, 853, 104, R, 3, 'insight', 778, 96);
-  h += `<g opacity="${on(3)}"><line x1="778" y1="108" x2="778" y2="146" stroke="${R}" stroke-width="1.5" stroke-dasharray="4 4"/><rect x="726" y="148" width="126" height="96" rx="10" fill="${RB}" stroke="${R}" stroke-width="${act(3) ? 3.5 : 2}"/><text x="738" y="170" font-size="12" font-family="IBM Plex Mono, monospace" fill="${RI}">concurrency_</text><text x="738" y="186" font-size="12" font-family="IBM Plex Mono, monospace" fill="${RI}">model</text><text x="738" y="210" font-size="11.5" fill="${M}">8 threads,</text><text x="738" y="226" font-size="11.5" fill="${M}">32 DB conns</text></g>`;
+  h += `<rect x="190" y="20" width="530" height="360" rx="18" fill="${EB}" stroke="${E}" stroke-dasharray="8 6" stroke-width="2" opacity=".75"/><text x="455" y="46" font-size="16" font-weight="700" fill="${EX}" text-anchor="middle">Application Insight Plane (AIP)</text>`;
+  h += `<g opacity="${on(0)}"><rect x="8" y="168" width="150" height="168" rx="12" fill="none" stroke="${A}" stroke-width="2"/><text x="83" y="188" font-size="12" font-weight="700" fill="${A}" text-anchor="middle">Application</text>`
+    + `<g transform="translate(0 26)">` + [[18, 214, 26], [66, 178, 26], [66, 214, 26], [66, 250, 26], [114, 214, 30]].map(([x, y, w]) => `<rect x="${x}" y="${y}" width="${w}" height="18" rx="5" fill="${S}" stroke="${L}" stroke-width="1.5"/>`).join('')
+    + [[44, 223, 66, 187], [44, 223, 66, 223], [44, 223, 66, 259], [92, 187, 114, 223], [92, 223, 114, 223], [92, 259, 114, 223]].map(([a, b, c, d]) => `<path d="M${a} ${b} C ${(a + c) / 2} ${b}, ${(a + c) / 2} ${d}, ${c} ${d}" fill="none" stroke="${M}" stroke-width="1.3"/>`).join('') + '</g>'
+    + `<text x="83" y="324" font-size="11" fill="${M}" text-anchor="middle">code, configs, telemetry</text></g>`;
+  h += `<g opacity="${on(0)}" fill="none" stroke="${EX}" stroke-width="1.6"><rect x="250" y="60" width="16" height="13" rx="3"/><line x1="258" y1="55" x2="258" y2="60"/><circle cx="258" cy="54" r="1.6" fill="${EX}"/></g><g opacity="${on(0)}" fill="${EX}"><circle cx="254.5" cy="66.5" r="1.6"/><circle cx="261.5" cy="66.5" r="1.6"/></g><text x="272" y="72" font-size="13" font-weight="700" fill="${EX}" opacity="${on(0)}">Insight providers</text>`
+    + `<text x="310" y="96" font-size="12" fill="${M}" opacity="${on(0)}" text-anchor="middle">LLM agents use:</text>` + [['static analysis', 222, 104, 98], ['profilers', 326, 104, 64], ['experiments', 222, 132, 82], ['trace analysis', 310, 132, 100]].map(([x, a, b, w]) => `<g opacity="${on(0)}"><rect x="${a}" y="${b}" width="${w}" height="22" rx="6" fill="${S}"/><text x="${a + 8}" y="${b + 15}" font-size="12" fill="${EX}">${x}</text></g>`).join('') + box(210, 170, 200, 48, S, E, 'Call graph', EX, '', 0) + box(210, 228, 200, 48, S, E, 'Concurrency model', EX, '', 0) + box(210, 286, 200, 48, S, E, 'Performance model', EX, '', 0);
+  h += `<g opacity="${on(1)}"><rect x="500" y="140" width="200" height="210" rx="12" fill="${S}" stroke="${R}" stroke-width="${act(1) ? 3.5 : 2}"/><text x="600" y="168" font-size="16" font-weight="700" fill="${RI}" text-anchor="middle">Insight registry</text><text x="600" y="190" font-size="13" fill="${M}" text-anchor="middle">Insights by kind and scope</text></g>`;
+  ['call_graph', 'concurrency_model', 'performance_model'].forEach((k, i) => h += `<g opacity="${on(1)}"><rect x="514" y="${210 + i * 36}" width="172" height="28" rx="6" fill="${k === 'concurrency_model' && pstep >= 1 ? RB : S}" stroke="${R}" stroke-width="1.2"/><text x="524" y="${229 + i * 36}" font-size="12.5" font-family="IBM Plex Mono, monospace" fill="${RI}">${k}</text></g>`);
+  h += box(858, 130, 190, 52, S, B, 'Overload controller', BI, '', 2) + box(858, 194, 190, 52, S, B, 'Autoscaler', BI, '', 2) + box(858, 258, 190, 52, S, B, 'Load balancer', BI, '', 2) + box(858, 322, 190, 52, S, B, 'Tracer', BI, '', 2);
+  h += arr(158, 252, 205, 252, E, 0) + arr(410, 252, 495, 252, E, 1, 'publish', 452, 234);
+  h += `<g opacity="${on(2)}"><polyline points="910,130 910,104 600,104 600,134" fill="none" stroke="${B}" stroke-width="${act(2) ? 4 : 2.5}" marker-end="url(#m${B.replace('#', '')})"/><text x="812" y="96" font-size="13" font-weight="600" fill="${B}" text-anchor="middle">query (kind, scope)</text></g>`;
+  h += arr(700, 156, 853, 156, R, 3, 'insight', 778, 148);
+  h += `<g opacity="${on(3)}"><line x1="778" y1="160" x2="778" y2="198" stroke="${R}" stroke-width="1.5" stroke-dasharray="4 4"/><rect x="726" y="200" width="126" height="96" rx="10" fill="${RB}" stroke="${R}" stroke-width="${act(3) ? 3.5 : 2}"/><text x="738" y="222" font-size="12" font-family="IBM Plex Mono, monospace" fill="${RI}">concurrency_</text><text x="738" y="238" font-size="12" font-family="IBM Plex Mono, monospace" fill="${RI}">model</text><text x="738" y="262" font-size="11.5" fill="${M}">8 threads,</text><text x="738" y="278" font-size="11.5" fill="${M}">32 DB conns</text></g>`;
   return h;
 }
-function renderPlane() { $('planesvg').innerHTML = planeSVG(); $('pcap').textContent = PSTEPS[pstep][1]; document.querySelectorAll('#psteps .btn').forEach((b, i) => b.setAttribute('aria-pressed', i === pstep)); }
+function planeSVGphone() {
+  const L = css('--line'), E = css('--ext-line'), EB = css('--ext-bg'), EX = css('--ext'), R = css('--ins'), RB = css('--ins-bg'), RI = css('--ins-ink'), B = css('--ctl-line'), BI = css('--ctl'), A = css('--app'), S = css('--surface'), M = css('--muted');
+  const on = k => pstep >= k ? 1 : .25, act = k => pstep === k;
+  const box = (x, y, w, h, stroke, txt, col, k, sub) => `<g opacity="${on(k)}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="12" fill="${S}" stroke="${stroke}" stroke-width="${act(k) ? 3.5 : 2}"/><text x="${x + 12}" y="${y + (sub ? 24 : h / 2 + 5)}" font-size="15" font-weight="700" fill="${col}">${txt}</text>${sub ? `<text x="${x + 12}" y="${y + 42}" font-size="12" fill="${M}">${sub}</text>` : ''}</g>`;
+  const mk = c => `<marker id="p${c.replace('#', '')}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="${c}"/></marker>`;
+  const ln = (pts, col, k, w) => `<polyline points="${pts}" fill="none" stroke="${col}" stroke-width="${act(k) ? 4 : (w || 2.5)}" marker-end="url(#p${col.replace('#', '')})" opacity="${on(k)}"/>`;
+  let h = `<defs>${mk(E)}${mk(B)}${mk(R)}</defs>`;
+  h += `<g opacity="${on(0)}"><rect x="10" y="6" width="340" height="66" rx="12" fill="none" stroke="${A}" stroke-width="2"/><text x="110" y="30" font-size="13" font-weight="700" fill="${A}" text-anchor="middle">Application</text><text x="110" y="52" font-size="12" fill="${M}" text-anchor="middle">code, configs, telemetry</text>`
+    + `<g transform="translate(225 -82) scale(.6)">` + [[18, 214, 26], [66, 178, 26], [66, 214, 26], [66, 250, 26], [114, 214, 30]].map(([x, y, w]) => `<rect x="${x}" y="${y}" width="${w}" height="18" rx="5" fill="${S}" stroke="${L}" stroke-width="2"/>`).join('')
+    + [[44, 223, 66, 187], [44, 223, 66, 223], [44, 223, 66, 259], [92, 187, 114, 223], [92, 223, 114, 223], [92, 259, 114, 223]].map(([a, b, c, d]) => `<path d="M${a} ${b} C ${(a + c) / 2} ${b}, ${(a + c) / 2} ${d}, ${c} ${d}" fill="none" stroke="${M}" stroke-width="1.8"/>`).join('') + '</g></g>';
+  h += `<rect x="10" y="96" width="340" height="478" rx="16" fill="${EB}" stroke="${E}" stroke-dasharray="8 6" stroke-width="2" opacity=".75"/><text x="180" y="122" font-size="15" font-weight="700" fill="${EX}" text-anchor="middle">Application Insight Plane (AIP)</text>`;
+  h += ln('336,72 336,296 228,296', E, 0);
+  h += `<g opacity="${on(0)}" fill="none" stroke="${EX}" stroke-width="1.6"><rect x="24" y="138" width="16" height="13" rx="3"/><line x1="32" y1="133" x2="32" y2="138"/><circle cx="32" cy="132" r="1.6" fill="${EX}"/></g><g opacity="${on(0)}" fill="${EX}"><circle cx="28.5" cy="144.5" r="1.6"/><circle cx="35.5" cy="144.5" r="1.6"/></g><text x="46" y="150" font-size="13" font-weight="700" fill="${EX}" opacity="${on(0)}">Insight providers</text>`
+    + `<text x="24" y="172" font-size="12" fill="${M}" opacity="${on(0)}">LLM agents use:</text>` + [['static analysis', 24, 180, 98], ['profilers', 128, 180, 64], ['experiments', 24, 206, 82], ['trace analysis', 112, 206, 100]].map(([x, a, b, w]) => `<g opacity="${on(0)}"><rect x="${a}" y="${b}" width="${w}" height="22" rx="6" fill="${S}"/><text x="${a + 8}" y="${b + 15}" font-size="12" fill="${EX}">${x}</text></g>`).join('');
+  h += box(24, 240, 200, 42, E, 'Call graph', EX, 0) + box(24, 292, 200, 42, E, 'Concurrency model', EX, 0) + box(24, 344, 200, 42, E, 'Performance model', EX, 0);
+  h += ln('224,326 300,326 300,402', E, 1) + `<text x="306" y="370" font-size="12" font-weight="600" fill="${E}" opacity="${on(1)}">publish</text>`;
+  h += `<g opacity="${on(1)}"><rect x="24" y="406" width="300" height="150" rx="12" fill="${S}" stroke="${R}" stroke-width="${act(1) ? 3.5 : 2}"/><text x="174" y="430" font-size="15" font-weight="700" fill="${RI}" text-anchor="middle">Insight registry</text><text x="174" y="448" font-size="12" fill="${M}" text-anchor="middle">Insights by kind and scope</text></g>`;
+  ['call_graph', 'concurrency_model', 'performance_model'].forEach((k, i) => h += `<g opacity="${on(1)}"><rect x="38" y="${462 + i * 30}" width="272" height="24" rx="6" fill="${k === 'concurrency_model' && pstep >= 1 ? RB : S}" stroke="${R}" stroke-width="1.2"/><text x="48" y="${479 + i * 30}" font-size="12" font-family="IBM Plex Mono, monospace" fill="${RI}">${k}</text></g>`);
+  h += ln('60,610 60,560', B, 2) + `<text x="68" y="592" font-size="12" font-weight="600" fill="${B}" opacity="${on(2)}">query</text>`;
+  h += ln('150,560 150,610', R, 3) + `<text x="158" y="582" font-size="12" font-weight="600" fill="${R}" opacity="${on(3)}">insight:</text><text x="158" y="598" font-size="12" fill="${M}" opacity="${on(3)}">8 threads, 32 DB conns</text>`;
+  h += box(10, 614, 168, 42, B, 'Overload controller', BI, 2) + box(186, 614, 164, 42, B, 'Autoscaler', BI, 2) + box(10, 664, 168, 42, B, 'Load balancer', BI, 2) + box(186, 664, 164, 42, B, 'Tracer', BI, 2);
+  return h;
+}
+function renderPlane() { const ph = $('planesvg').parentElement.clientWidth < 640; $('planesvg').setAttribute('viewBox', ph ? '0 0 360 712' : '0 0 1060 400'); $('planesvg').innerHTML = ph ? planeSVGphone() : planeSVG(); $('pcap').innerHTML = PSTEPS[pstep][1].map(x => `<li>${x}</li>`).join(''); document.querySelectorAll('#psteps .btn').forEach((b, i) => b.setAttribute('aria-pressed', i === pstep)); }
 PSTEPS.forEach(([lab], i) => { const b = document.createElement('button'); b.className = 'btn'; b.textContent = `${i + 1}. ${lab}`; b.onclick = () => { pstep = i; renderPlane(); }; $('psteps').appendChild(b); });
 const nb = document.createElement('button'); nb.className = 'btn'; nb.textContent = 'Next →'; nb.onclick = () => { pstep = (pstep + 1) % PSTEPS.length; renderPlane(); }; $('psteps').appendChild(nb);
 renderPlane();
+addEventListener('resize', renderPlane);
 
 const KINDS = [
   ['Call graph', 'Which services a request calls, and in what order.'],
@@ -372,6 +546,7 @@ const KINDS = [
   ['Performance model', 'How latency and throughput change with load and resources.'],
   ['Objectives', 'The latency or throughput targets the application must meet.']];
 const CTLS = ['Autoscaler', 'Load balancer', 'Overload controller', 'Scheduler', 'Tracer'];
+const CDEF = ['Adds or removes replicas of a service as load changes.', 'Spreads requests across replicas or clusters.', 'Limits how many requests a service admits at once.', 'Decides where work runs and in what order.', 'Reconstructs how each request moved through the services.'];
 const USE = {
   '0,0': 'Scale downstream services ahead of a burst, since it knows which services a request will reach.',
   '0,2': 'Shed or delay requests at the entry point before they overload a downstream service.',
@@ -395,18 +570,20 @@ const USE = {
   '6,1': 'Send latency-sensitive classes to the fastest backends.' };
 let sel = '2,2';
 function renderMx() {
-  let h = '<thead><tr><th></th>' + CTLS.map(c => `<th>${c}</th>`).join('') + '</tr></thead><tbody>';
+  let h = '<colgroup><col class="rowc">' + CTLS.map(() => '<col>').join('') + '</colgroup><thead><tr><th></th>' + CTLS.map(c => `<th>${c}</th>`).join('') + '</tr></thead><tbody>';
   KINDS.forEach(([k], i) => { h += `<tr><th class="rowh" scope="row">${k}</th>` + CTLS.map((c, j) => { const key = `${i},${j}`, has = key in USE;
-    return `<td><button class="${has ? 'has' : ''}" data-k="${key}" aria-pressed="${key === sel}" ${has ? '' : 'disabled'} aria-label="${k} for ${c}">${has ? 'Use case' : '·'}</button></td>`; }).join('') + '</tr>'; });
+    return `<td>${has ? `<button class="btn" data-k="${key}" aria-pressed="${key === sel}" aria-label="${k} for ${c}">Use case</button>` : `<span class="na" aria-label="not used"></span>`}</td>`; }).join('') + '</tr>'; });
   $('mx').innerHTML = h + '</tbody>';
-  $('mx').querySelectorAll('button.has').forEach(b => b.onclick = () => { sel = b.dataset.k; renderMx(); });
+  $('mxl').innerHTML = KINDS.map(([k], i) => `<div class="mxr"><p class="ins">${k}</p><div>` + CTLS.map((c, j) => { const key = `${i},${j}`;
+    return key in USE ? `<button class="btn" data-k="${key}" aria-pressed="${key === sel}">${c}</button>` : `<span class="na">${c}</span>`; }).join('') + '</div></div>').join('');
+  document.querySelectorAll('#mx button, #mxl button').forEach(b => b.onclick = () => { sel = b.dataset.k; renderMx(); });
   const [i, j] = sel.split(',').map(Number);
-  $('mq').textContent = `${KINDS[i][0]} → ${CTLS[j]}`; $('ma').textContent = USE[sel]; $('mdef').textContent = `${KINDS[i][0]}: ${KINDS[i][1]}`;
+  $('mdl').innerHTML = `<dt class="ins">Insight: ${KINDS[i][0]}</dt><dd>${KINDS[i][1]}</dd><dt class="ctl">Controller: ${CTLS[j]}</dt><dd>${CDEF[j]}</dd><dt class="use">Use case</dt><dd>${USE[sel]}</dd>`;
 }
 renderMx();
 
 const BASE = { threads: 8, pool: 32, log: 'Fetching visits for pets {}', jackson: '2.15.2', async: false };
-let st = { ...BASE }, ext = null, file = 'compose', changed = new Set();
+let st = { ...BASE }, snap = { ...BASE }, ext = null, file = 'compose', changed = new Set();
 const RHO = 0.91;
 function files(s) { return {
   compose: { name: 'docker-compose.yml', lines: [
@@ -425,18 +602,26 @@ function files(s) { return {
     '  <groupId>com.fasterxml.jackson.core</groupId>', '  <artifactId>jackson-databind</artifactId>', `  <version>${s.jackson}</version>`, '</dependency>'],
     cite: { 2: 'async', 6: 'pool' } } }; }
 const CHANGES = [
-  { id: 'threads', lab: 'Double the thread pool', sub: 'TOMCAT_MAX_THREADS 8 → 16', f: 'compose', line: 6, apply: s => s.threads = s.threads === 8 ? 16 : 8 },
-  { id: 'pool', lab: 'Shrink the database pool', sub: 'HIKARI_MAX_POOL 32 → 4', f: 'compose', line: 8, apply: s => s.pool = s.pool === 32 ? 4 : 32 },
-  { id: 'log', lab: 'Reword a log message', sub: 'VisitResource.java, line 8', f: 'java', line: 7, apply: s => s.log = s.log === BASE.log ? 'Loading visit history for {}' : BASE.log },
-  { id: 'jackson', lab: 'Bump the JSON library', sub: 'jackson-databind 2.15.2 → 2.17.1', f: 'pom', line: 11, apply: s => s.jackson = s.jackson === BASE.jackson ? '2.17.1' : BASE.jackson },
-  { id: 'async', lab: 'Switch to non-blocking handlers', sub: 'Spring MVC → WebFlux', f: 'java', line: 6, apply: s => s.async = !s.async }];
+  { id: 'threads', lab: 'Double the thread pool', sub: 'threads 8 → 16', f: 'compose', line: 6, apply: s => s.threads = s.threads === 8 ? 16 : 8 },
+  { id: 'pool', lab: 'Shrink the DB pool', sub: 'connections 32 → 4', f: 'compose', line: 8, apply: s => s.pool = s.pool === 32 ? 4 : 32 },
+  { id: 'log', lab: 'Reword a log message', sub: 'VisitResource.java:8', f: 'java', line: 7, apply: s => s.log = s.log === BASE.log ? 'Loading visit history for {}' : BASE.log },
+  { id: 'jackson', lab: 'Bump the JSON library', sub: 'jackson 2.15 → 2.17', f: 'pom', line: 11, apply: s => s.jackson = s.jackson === BASE.jackson ? '2.17.1' : BASE.jackson },
+  { id: 'async', lab: 'Go non-blocking', sub: 'Spring MVC → WebFlux', f: 'java', line: 6, apply: s => s.async = !s.async }];
 function model(s) {
   if (s.async) return { exec: 'event loop (Netty), DB calls offloaded', limits: `event-loop threads: 2 (one per CPU)\nhikari.max_pool=${s.pool}`, block: 'none on the event loop, JDBC runs on a bounded scheduler',
-    cap: Math.floor(s.pool / RHO) + 1, why: `No worker-thread bound any more. The database pool is the limit: about ${Math.floor(s.pool / RHO)} requests can hold a connection at once, plus one spare.` };
+    t: null, d: Math.floor(s.pool / RHO), cap: Math.floor(s.pool / RHO) + 1, why: `No worker-thread bound any more. The database pool is the limit: about ${Math.floor(s.pool / RHO)} requests can hold a connection at once, plus one spare.` };
   const dbcap = Math.floor(s.pool / RHO), cap = Math.min(s.threads, dbcap) + 1;
   const why = s.threads <= dbcap ? `${s.threads} worker threads run out before the ${s.pool} database connections do, so the limit is ${s.threads} plus one spare.`
     : `The ${s.pool} database connections run out first (about ${dbcap} requests at a time), so the limit is ${dbcap} plus one spare.`;
-  return { exec: 'blocking thread pool (Tomcat)', limits: `tomcat.max_threads=${s.threads}\nhikari.max_pool=${s.pool}`, block: 'JDBC call via HikariCP', cap, why };
+  return { exec: 'blocking thread pool (Tomcat)', limits: `tomcat.max_threads=${s.threads}\nhikari.max_pool=${s.pool}`, block: 'JDBC call via HikariCP', t: s.threads, d: dbcap, cap, why };
+}
+function renderBn(m) {
+  const rows = [['Worker threads', m.t], ['Requests the DB pool can serve', m.d]], mx = Math.max(...rows.map(r => r[1] || 0)), lo = Math.min(...rows.filter(r => r[1] != null).map(r => r[1]));
+  const bn = $('bn'); bn.hidden = false;
+  if (!bn.querySelector('.bnr')) bn.innerHTML = '<p class="lab">Which pool runs out first</p>' + rows.map(([k]) => `<div class="bnr"><span>${k}</span><div class="bar"><i style="width:0"></i></div><b></b><em></em></div>`).join('');
+  requestAnimationFrame(() => bn.querySelectorAll('.bnr').forEach((r, i) => { const v = rows[i][1], b = v != null && v === lo;
+    r.classList.toggle('on', b); r.querySelector('i').style.width = (v == null ? 0 : Math.max(4, 100 * v / mx)) + '%';
+    r.querySelector('b').textContent = v == null ? 'no limit' : v; r.querySelector('em').textContent = b ? 'bottleneck' : ''; }));
 }
 function renderCode() {
   const F = files(st);
@@ -464,8 +649,8 @@ async function fetchInsight() {
     if (!touched.length) {
       await add(changed.size ? 'None of the changed lines are ones this insight was built from.' : 'Nothing to check.', true);
       await add('Kept the existing insight. No new extraction was needed.');
-      $('pstat').className = 'status fresh'; $('pstat').textContent = 'valid · reused';
-      changed.clear(); renderCode(); busy = false; $('fetch').disabled = false; return;
+      $('pstat').className = 'status fresh'; $('pstat').textContent = 'valid, reused';
+      changed.clear(); snap = { ...st }; renderCode(); renderChanges(); busy = false; $('fetch').disabled = false; return;
     }
     await add(`A changed line is one the insight cites (${touched.map(c => { const [f, i] = c.split(':'); return files(st)[f].name + ':' + (+i + 1); }).join(', ')}). Extracting again.`);
   } else await add('Found the server framework in pom.xml: Spring Boot web, which runs requests on a Tomcat thread pool.');
@@ -475,29 +660,31 @@ async function fetchInsight() {
   await add('Audit pass: each value is backed by a cited line. Published the insight.');
   ext = { m, cites: st.async ? ['java:6', 'java:8', 'pom:2', 'compose:8'] : ['compose:6', 'compose:8', 'java:6', 'java:8', 'pom:2', 'pom:6'] };
   $('icard').hidden = false; $('ibody').innerHTML = cardBody(m, prev);
-  $('limit').hidden = false; $('lv').textContent = m.cap; $('lwhy').textContent = m.why;
-  $('pstat').className = 'status fresh'; $('pstat').textContent = prev ? 'valid · re-extracted' : 'valid';
-  changed.clear(); renderCode(); busy = false; $('fetch').disabled = false;
+  $('limit').hidden = false; const tb = m.t != null && m.t <= m.d;
+  $('limit').innerHTML = `<dt>Bottleneck:</dt><dd>${tb ? `worker threads (${m.t})` : `database pool (about ${m.d} requests)`}</dd><dt>Envoy’s limit:</dt><dd>${m.cap} (${tb ? m.t : m.d} + 1 spare)</dd>`; renderBn(m);
+  $('pstat').className = 'status fresh'; $('pstat').textContent = prev ? 'valid, re-extracted' : 'valid';
+  changed.clear(); snap = { ...st }; renderCode(); renderChanges(); busy = false; $('fetch').disabled = false;
 }
 function renderChanges() {
-  $('changes').innerHTML = CHANGES.map(c => `<button class="btn" data-c="${c.id}" aria-pressed="${st[c.id] !== BASE[c.id]}">${c.lab}<small>${c.sub}${st[c.id] !== BASE[c.id] ? ' · applied, press again to undo' : ''}</small></button>`).join('');
-  $('changes').querySelectorAll('button').forEach(b => b.onclick = () => { const c = CHANGES.find(x => x.id === b.dataset.c); c.apply(st); changed.add(c.f + ':' + c.line); file = c.f;
-    if (c.id === 'async') { changed.add('java:8'); changed.add('pom:2'); }
-    if (ext) { $('pstat').className = 'status stale'; $('pstat').textContent = 'code changed · fetch to check'; }
+  $('changes').innerHTML = CHANGES.map(c => `<button class="btn" data-c="${c.id}" aria-pressed="${st[c.id] !== BASE[c.id]}">${c.lab}<small>${c.sub}</small></button>`).join('');
+  $('changes').querySelectorAll('button').forEach(b => b.onclick = () => { const c = CHANGES.find(x => x.id === b.dataset.c); c.apply(st); file = c.f;
+    const lines = [c.f + ':' + c.line].concat(c.id === 'async' ? ['java:8', 'pom:2'] : []);
+    lines.forEach(l => st[c.id] === snap[c.id] ? changed.delete(l) : changed.add(l));
+    if (ext) { $('pstat').className = changed.size ? 'status stale' : 'status fresh'; $('pstat').textContent = changed.size ? 'code changed, fetch to check' : 'valid'; }
     renderCode(); renderChanges(); });
 }
 $('fetch').onclick = fetchInsight;
-$('reset').onclick = () => { st = { ...BASE }; ext = null; changed.clear(); $('log').innerHTML = ''; $('icard').hidden = true; $('limit').hidden = true; $('pstat').className = 'status'; $('pstat').textContent = 'no insight yet'; renderCode(); renderChanges(); };
+$('reset').onclick = () => { st = { ...BASE }; snap = { ...BASE }; ext = null; changed.clear(); $('log').innerHTML = ''; $('icard').hidden = true; $('limit').hidden = true; $('bn').hidden = true; $('bn').innerHTML = ''; $('pstat').className = 'status'; $('pstat').textContent = 'no insight yet'; renderCode(); renderChanges(); };
 renderCode(); renderChanges();
 
 const PERF = {"A": {"default": [[20, 77.52], [40, 73.73], [60, 71.98], [80, 71.47], [100, 71.34], [120, 72.42], [140, 110.14], [160, 111.22], [180, 108.58], [200, 111.7]], "aip": [[20, 75.88], [40, 72.98], [60, 71.92], [80, 71.16], [100, 71.44], [120, 70.61], [140, 77.11], [160, 82.94], [180, 85.55], [200, 90.89]]},
   "B": {"default": [[20, 77.2], [40, 73.41], [60, 72.35], [80, 118.58], [100, 120.63]], "aip": [[20, 76.69], [40, 72.77], [60, 71.99], [80, 89.45], [100, 95.57]]}};
-const CFG = { A: ['8 threads, 32 DB connections', 'The thread pool is the bottleneck, so the insight caps Envoy at 9. Up to 30% lower p95.', 130, 200], B: ['32 threads, 4 DB connections', 'The database pool is the bottleneck, so the insight caps Envoy at 5. Up to 25% lower p95.', 130, 100] };
+const CFG = { A: ['8 threads, 32 DB conns', ['thread pool limit', 'Envoy’s cap set to 9', 'up to 30% lower p95'], 130, 200], B: ['32 threads, 4 DB conns', ['database connection pool', 'Envoy’s cap set to 5', 'up to 25% lower p95'], 130, 100] };
 let cfg = 'A';
 ['A', 'B'].forEach(k => { const b = document.createElement('button'); b.className = 'btn'; b.textContent = CFG[k][0]; b.onclick = () => { cfg = k; drawChart(); }; b.dataset.k = k; $('cfg').appendChild(b); });
 function drawChart() {
   document.querySelectorAll('#cfg .btn').forEach(b => b.setAttribute('aria-pressed', b.dataset.k === cfg));
-  const d = PERF[cfg], xmax = CFG[cfg][3], W = 620, H = 330, m = { l: 56, r: 16, t: 16, b: 54 };
+  const d = PERF[cfg], xmax = CFG[cfg][3], W = 620, H = 350, m = { l: 56, r: 16, t: 40, b: 54 };
   const X = v => m.l + (v / xmax) * (W - m.l - m.r), Y = v => m.t + (1 - (v - 60) / 70) * (H - m.t - m.b);
   let h = '';
   for (let v = 60; v <= 130; v += 10) h += `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="${css('--line')}"/><text x="${m.l - 8}" y="${Y(v) + 4}" text-anchor="end">${v}</text>`;
@@ -505,9 +692,9 @@ function drawChart() {
   h += `<text x="${(W + m.l) / 2}" y="${H - 8}" text-anchor="middle">offered load (requests/s)</text><text transform="translate(16 ${(H - m.b) / 2}) rotate(-90)" text-anchor="middle">p95 latency (ms)</text>`;
   const path = a => a.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join(' ');
   h += `<path d="${path(d.default)}" fill="none" stroke="${css('--muted')}" stroke-width="2.5" stroke-dasharray="8 6"/><path d="${path(d.aip)}" fill="none" stroke="${css('--ins')}" stroke-width="3.5"/>`;
-  const ld = d.default[d.default.length - 1], la = d.aip[d.aip.length - 1];
-  h += `<text x="${X(ld[0]) - 4}" y="${Y(ld[1]) - 10}" text-anchor="end" style="fill:${css('--muted')};font-weight:600">Default Envoy</text><text x="${X(la[0]) - 4}" y="${Y(la[1]) + 22}" text-anchor="end" style="fill:${css('--ins')};font-weight:600">With the insight</text>`;
-  $('p95').innerHTML = h; $('cfgnote').textContent = CFG[cfg][1];
+  h += `<line x1="${m.l + 10}" x2="${m.l + 44}" y1="${m.t + 8}" y2="${m.t + 8}" stroke="${css('--muted')}" stroke-width="2.5" stroke-dasharray="8 6"/><text x="${m.l + 52}" y="${m.t + 13}">Default Envoy</text>`
+    + `<line x1="${m.l + 200}" x2="${m.l + 234}" y1="${m.t + 8}" y2="${m.t + 8}" stroke="${css('--ins')}" stroke-width="3.5"/><text x="${m.l + 242}" y="${m.t + 13}" style="fill:${css('--ins')}">Envoy with AIP’s insight</text>`;
+  $('p95').innerHTML = h; $('cfgnote').innerHTML = ['Bottleneck', 'Implication', 'Value'].map((k, i) => `<dt>${k}:</dt><dd>${CFG[cfg][1][i]}</dd>`).join('');
 }
 drawChart();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { drawChart(); renderPlane(); renderX(); });
